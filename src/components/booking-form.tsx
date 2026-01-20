@@ -19,6 +19,8 @@ export default function BookingForm({ scooter, shopId }: BookingFormProps) {
 
   const today = new Date().toISOString().split("T")[0];
 
+  const BOOKING_FEE_PERCENT = 0.05; // 5% service fee
+
   const calculateTotal = () => {
     if (!startDate || !endDate) return null;
     const start = new Date(startDate);
@@ -26,9 +28,15 @@ export default function BookingForm({ scooter, shopId }: BookingFormProps) {
     const days = differenceInDays(end, start);
     if (days <= 0) return null;
 
+    const rentalPrice = days * scooter.daily_price;
+    const bookingFee = Math.round(rentalPrice * BOOKING_FEE_PERCENT);
+    const totalPrice = rentalPrice + bookingFee;
+
     return {
       days,
-      price: days * scooter.daily_price,
+      rentalPrice,
+      bookingFee,
+      totalPrice,
     };
   };
 
@@ -43,8 +51,9 @@ export default function BookingForm({ scooter, shopId }: BookingFormProps) {
     >
       <input type="hidden" name="scooter_id" value={scooter.id} />
       <input type="hidden" name="shop_id" value={shopId} />
-      <input type="hidden" name="total_price" value={totals?.price || 0} />
+      <input type="hidden" name="total_price" value={totals?.totalPrice || 0} />
       <input type="hidden" name="total_days" value={totals?.days || 0} />
+      <input type="hidden" name="booking_fee" value={totals?.bookingFee || 0} />
 
       <div className="grid grid-cols-2 gap-4">
         <div>
@@ -82,14 +91,29 @@ export default function BookingForm({ scooter, shopId }: BookingFormProps) {
       )}
 
       {totals && (
-        <div className="flex justify-between items-center py-2 border-t border-gray-200 mt-2">
-          <span className="text-sm font-bold text-gray-500">
-            {totals.days} Days
-          </span>
-          <span className="text-lg font-extrabold text-gray-900">
-            {totals.price}฿{" "}
-            <span className="text-xs font-normal text-gray-400">Total</span>
-          </span>
+        <div className="border-t border-gray-200 mt-2 pt-3 space-y-2">
+          <div className="flex justify-between items-center text-sm">
+            <span className="text-gray-500">
+              {totals.days} days × {scooter.daily_price}฿
+            </span>
+            <span className="font-medium text-gray-700">
+              {totals.rentalPrice}฿
+            </span>
+          </div>
+          <div className="flex justify-between items-center text-sm">
+            <span className="text-gray-500">
+              Chiang Ride fee <span className="text-gray-400">(5%)</span>
+            </span>
+            <span className="font-medium text-gray-700">
+              {totals.bookingFee}฿
+            </span>
+          </div>
+          <div className="flex justify-between items-center pt-2 border-t border-gray-100">
+            <span className="text-sm font-bold text-gray-900">Total</span>
+            <span className="text-lg font-extrabold text-gray-900">
+              {totals.totalPrice}฿
+            </span>
+          </div>
         </div>
       )}
 
