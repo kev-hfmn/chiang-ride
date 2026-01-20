@@ -30,12 +30,13 @@ export interface Scooter {
 export type BookingStatus =
   | "requested"
   | "pending"
-  | "confirmed"
-  | "active"
+  | "confirmed" // Accepted, waiting for pickup
+  | "active"    // Rental started / Currently on the road
   | "completed"
   | "cancelled"
   | "rejected"
   | "maintenance";
+
 
 export interface Booking {
   id: string;

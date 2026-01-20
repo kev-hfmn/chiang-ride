@@ -62,10 +62,19 @@ export default async function ShopsPage() {
               href={`/app/shops/${shop.id}`}
               className="block group bg-white border-none rounded-2xl shadow-sm hover:shadow-lg transition-all overflow-hidden ring-1 ring-gray-100"
             >
-              <div className="h-48 bg-gradient-to-br from-green-50 to-green-100 flex items-center justify-center text-green-300 group-hover:from-green-100 group-hover:to-green-200 transition-colors relative">
-                <Store className="w-16 h-16 opacity-50" />
+              <div className="h-48 bg-gradient-to-br from-green-50 to-green-100 flex items-center justify-center text-green-300 group-hover:from-green-100 group-hover:to-green-200 transition-colors relative overflow-hidden">
+                {shop.image_url ? (
+                  <img 
+                    src={shop.image_url} 
+                    alt={shop.name} 
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                ) : (
+                  <Store className="w-16 h-16 opacity-50" />
+                )}
+                
                 {shop.is_verified && (
-                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-2 py-1 rounded-full text-xs font-bold text-green-700 flex items-center gap-1 shadow-sm">
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-2 py-1 rounded-full text-xs font-bold text-green-700 flex items-center gap-1 shadow-sm z-10">
                     <ShieldCheck className="w-3 h-3 fill-green-700 text-white" />
                     {t('verified')}
                   </div>

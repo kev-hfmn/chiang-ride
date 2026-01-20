@@ -3,6 +3,7 @@ import { format } from 'date-fns'
 import { getTranslations } from '@/lib/i18n/server'
 import { Calendar, CheckCircle, Clock, Smartphone, User, XCircle, MoreHorizontal } from 'lucide-react'
 import { updateBookingStatusAction } from '@/app/actions/bookings'
+import { BookingActions } from '@/components/bookings/booking-actions'
 
 export default async function ShopBookingsPage() {
   const shop = await getAdminShop()
@@ -48,6 +49,7 @@ export default async function ShopBookingsPage() {
                              booking.status}
                         </span>
                         <span className="text-xs text-gray-400 font-mono">#{booking.id.slice(0, 6)}</span>
+                        <span className="text-[10px] text-gray-300 uppercase tracking-tight">Received {format(new Date(booking.created_at), 'MMM d, HH:mm')}</span>
                     </div>
 
                     <div className="flex items-center gap-3">
@@ -78,43 +80,18 @@ export default async function ShopBookingsPage() {
                     </div>
                 </div>
 
+
                 {/* Price & Actions */}
-                <div className="flex flex-row sm:flex-col justify-between items-end gap-4 min-w-[120px]">
-                    <div className="text-right">
-                        <div className="text-2xl font-extrabold text-gray-900">{booking.total_price}฿</div>
-                        <div className="text-xs text-gray-400">{t('total')}</div>
-                    </div>
-
-                    {(booking.status === 'requested' || booking.status === 'pending') && (
-                       <div className="flex gap-2 w-full sm:w-auto">
-                           <form action={updateBookingStatusAction}>
-                               <input type="hidden" name="booking_id" value={booking.id} />
-                               <input type="hidden" name="status" value="rejected" />
-                               <button className="p-2 rounded-lg bg-gray-50 hover:bg-red-50 text-gray-500 hover:text-red-500 transition-colors" title="Reject">
-                                   <XCircle className="w-6 h-6" />
-                               </button>
-                           </form>
-                           <form action={updateBookingStatusAction}>
-                               <input type="hidden" name="booking_id" value={booking.id} />
-                               <input type="hidden" name="status" value="active" />
-                               <button className="flex-1 sm:flex-initial px-4 py-2 bg-black text-white rounded-lg font-bold text-sm hover:bg-gray-800 transition-colors flex items-center justify-center gap-2 shadow-sm">
-                                   <CheckCircle className="w-4 h-4" />
-                                   {t('accept')}
-                               </button>
-                           </form>
-                       </div>
-                    )}
-
-                    {booking.status === 'active' && (
-                        <form action={updateBookingStatusAction} className="w-full sm:w-auto">
-                              <input type="hidden" name="booking_id" value={booking.id} />
-                              <input type="hidden" name="status" value="completed" />
-                              <button className="w-full sm:w-auto px-4 py-2 bg-green-50 text-green-700 hover:bg-green-100 rounded-lg font-bold text-sm transition-colors border border-green-200">
-                                  {t('markCompleted')}
-                              </button>
-                        </form>
-                    )}
-                </div>
+                <BookingActions 
+                    booking={booking} 
+                    labels={{
+                        accept: t('accept'),
+                        reject: 'Reject', // t('reject') if available, otherwise fallback
+                        startRental: 'Start Rental', // t('startRental')
+                        markCompleted: t('markCompleted'),
+                        total: t('total')
+                    }}
+                />
              </div>
           </div>
         ))}
