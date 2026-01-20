@@ -35,6 +35,8 @@ create table shops (
   description text,
   address text,
   city text default 'Chiang Mai',
+  latitude decimal(10, 8),
+  longitude decimal(11, 8),
   is_verified boolean default false,
   created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );

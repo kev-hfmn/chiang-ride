@@ -1,26 +1,74 @@
-'use client'
-
 import Link from 'next/link'
-import { ArrowLeft, Construction } from 'lucide-react'
+import { Plus, Settings, AlertCircle } from 'lucide-react'
+import { getAdminShop, getAdminInventory } from '@/lib/db/admin'
 
-export default function InventoryPage() {
+export default async function InventoryPage() {
+  const shop = await getAdminShop()
+  
+  if (!shop) {
+    return (
+      <div className="p-8 text-center text-gray-500">
+        <AlertCircle className="w-12 h-12 mx-auto mb-4 text-orange-400" />
+        <h2 className="text-xl font-bold text-gray-900">Shop Not Found</h2>
+        <p>Please log in or contact support.</p>
+      </div>
+    )
+  }
+
+  const scooters = await getAdminInventory(shop.id)
+
   return (
     <div className="space-y-6">
-       <div className="flex items-center gap-4">
-        <Link href="/app/shop-admin" className="p-2 -ml-2 hover:bg-gray-100 rounded-full transition-colors">
-            <ArrowLeft className="w-5 h-5 text-gray-500" />
+      <div className="flex items-center justify-between">
+        <div>
+           <h1 className="text-2xl font-extrabold text-gray-900">Fleet Inventory</h1>
+           <p className="text-gray-500 text-sm">Manage your bikes and pricing.</p>
+        </div>
+        <Link 
+          href="/app/shop-admin/inventory/new" 
+          className="inline-flex items-center gap-2 bg-orange-600 text-white px-4 py-2 rounded-xl font-bold shadow-md hover:bg-orange-700 transition-colors"
+        >
+          <Plus className="w-5 h-5" />
+          Add Scooter
         </Link>
-        <h1 className="text-2xl font-extrabold text-gray-900">Fleet Inventory</h1>
       </div>
 
-      <div className="flex flex-col items-center justify-center py-20 bg-white rounded-2xl border border-dashed border-gray-200">
-        <div className="w-16 h-16 bg-orange-50 rounded-full flex items-center justify-center text-orange-500 mb-4">
-             <Construction className="w-8 h-8" />
-        </div>
-        <h2 className="text-lg font-bold text-gray-900">Under Construction</h2>
-        <p className="text-gray-500 text-center max-w-sm mt-2">
-            This page will allow shop owners to manage their scooters, availability, and pricing.
-        </p>
+      <div className="grid gap-4">
+        {scooters.length === 0 ? (
+          <div className="p-8 text-center bg-white rounded-2xl border border-dashed border-gray-300">
+            <p className="text-gray-500">No scooters in your fleet yet.</p>
+          </div>
+        ) : (
+          scooters.map((scooter) => (
+            <div key={scooter.id} className="group flex items-center gap-4 bg-white p-4 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
+              {/* Image Placeholder */}
+              <div className="w-20 h-20 bg-gray-100 rounded-lg shrink-0 flex items-center justify-center text-2xl relative overflow-hidden">
+                 {scooter.image_url ? (
+                   <img src={scooter.image_url} alt={scooter.model} className="w-full h-full object-cover" />
+                 ) : (
+                   <span>🛵</span>
+                 )}
+                 {/* Status Dot */}
+                 <div className={`absolute top-1 right-1 w-2.5 h-2.5 rounded-full border border-white ${scooter.is_active ? 'bg-green-500' : 'bg-red-500'}`} />
+              </div>
+
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center justify-between">
+                   <h3 className="font-bold text-gray-900 truncate">{scooter.brand} {scooter.model}</h3>
+                   <span className="text-sm font-semibold text-gray-900">{scooter.daily_price}฿<span className="text-xs text-gray-500 font-normal">/day</span></span>
+                </div>
+                <div className="mt-1 flex items-center gap-3 text-xs text-gray-500">
+                  <span className="bg-gray-100 px-2 py-0.5 rounded-md text-gray-600">{scooter.engine_cc}cc</span>
+                  <span>Deposit: {scooter.deposit_amount}฿</span>
+                </div>
+              </div>
+
+              <button className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded-lg">
+                <Settings className="w-5 h-5" />
+              </button>
+            </div>
+          ))
+        )}
       </div>
     </div>
   )

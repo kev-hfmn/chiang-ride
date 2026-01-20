@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { Home, Search, Store, User, Bike, Briefcase } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -12,6 +12,7 @@ interface AppShellProps {
 
 export default function AppShell({ children }: AppShellProps) {
   const pathname = usePathname()
+  const router = useRouter()
   const [isShopMode, setIsShopMode] = useState(pathname.includes('shop-admin'))
 
   // Update mode if the path changes explicitly to a shop admin route (e.g. from direct navigation)
@@ -21,7 +22,15 @@ export default function AppShell({ children }: AppShellProps) {
     }
   }, [pathname])
 
-  const toggleMode = () => setIsShopMode(!isShopMode)
+  const toggleMode = () => {
+    const newMode = !isShopMode
+    setIsShopMode(newMode)
+    if (newMode) {
+      router.push('/app/shop-admin')
+    } else {
+      router.push('/app')
+    }
+  }
 
   return (
     <div className="flex flex-col h-screen bg-gray-50">
