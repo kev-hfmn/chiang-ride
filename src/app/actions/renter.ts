@@ -13,6 +13,7 @@ export async function createBookingRequestAction(formData: FormData) {
   const endDate = formData.get("end_date") as string;
   const totalPrice = parseInt(formData.get("total_price") as string);
   const totalDays = parseInt(formData.get("total_days") as string);
+  const bookingFee = parseInt(formData.get("booking_fee") as string) || 0;
 
   if (!scooterId || !startDate || !endDate) {
     return { error: "Missing required fields" };
@@ -29,7 +30,7 @@ export async function createBookingRequestAction(formData: FormData) {
       status: "requested",
       customer_name: "Demo Renter", // Hardcoded for MVP
       renter_id: null, // No authenticated user for MVP
-      booking_fee: 0,
+      booking_fee: bookingFee,
     });
 
     if (error) throw error;
