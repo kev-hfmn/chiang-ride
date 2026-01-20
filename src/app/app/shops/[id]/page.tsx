@@ -69,7 +69,13 @@ export default async function ShopDetailPage({ params }: { params: Promise<{ id:
                         <div className="p-4 flex gap-4">
                             {/* Image Placeholder */}
                             <div className="w-24 h-24 shrink-0 bg-gray-100 rounded-2xl flex items-center justify-center overflow-hidden">
-                                <ScooterImage model={scooter.model} className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-300" />
+                                <ScooterImage
+                                  brand={scooter.brand}
+                                  model={scooter.model}
+                                  scooterId={scooter.id}
+                                  imageUrl={scooter.image_url}
+                                  className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-300"
+                                />
                             </div>
 
                             {/* Details */}

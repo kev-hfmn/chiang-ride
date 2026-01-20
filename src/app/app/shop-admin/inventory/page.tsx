@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Plus, Settings, AlertCircle, Calendar } from 'lucide-react'
 import { getAdminShop, getAdminInventory } from '@/lib/db/admin'
+import { getScooterImage } from '@/lib/scooter-images'
 
 export default async function InventoryPage() {
   const shop = await getAdminShop()
@@ -50,13 +51,13 @@ export default async function InventoryPage() {
         ) : (
           scooters.map((scooter) => (
             <div key={scooter.id} className="group flex items-center gap-4 bg-white p-4 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
-              {/* Image Placeholder */}
-              <div className="w-20 h-20 bg-gray-100 rounded-lg shrink-0 flex items-center justify-center text-2xl relative overflow-hidden">
-                 {scooter.image_url ? (
-                   <img src={scooter.image_url} alt={scooter.model} className="w-full h-full object-cover" />
-                 ) : (
-                   <span>🛵</span>
-                 )}
+              {/* Image */}
+              <div className="w-20 h-20 bg-gray-100 rounded-lg shrink-0 flex items-center justify-center relative overflow-hidden">
+                 <img
+                   src={scooter.image_url || getScooterImage(scooter.brand, scooter.model, scooter.id)}
+                   alt={`${scooter.brand} ${scooter.model}`}
+                   className="w-full h-full object-cover"
+                 />
                  {/* Status Dot */}
                  <div className={`absolute top-1 right-1 w-2.5 h-2.5 rounded-full border border-white ${scooter.is_active ? 'bg-green-500' : 'bg-red-500'}`} />
               </div>

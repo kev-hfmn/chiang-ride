@@ -57,8 +57,7 @@ export async function getAdminBookings(shopId: string) {
       *,
       scooters (
         model,
-        brand,
-        image_url
+        brand
       )
     `)
     .eq('shop_id', shopId)
