@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { Home, Search, User, Bike, Briefcase, Settings, Calendar, CalendarDays } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -35,43 +36,44 @@ export default function AppShell({ children }: AppShellProps) {
   return (
     <div className="flex flex-col h-screen bg-gray-50">
       {/* Top Header */}
-      <header className="h-16 bg-linear-to-r from-emerald-600 to-green-600 flex items-center justify-between px-4 sticky top-0 z-50 shadow-md shrink-0 border-none transition-all duration-300 ease-in-out">
-        <Link href="/app" className="font-extrabold text-xl text-white tracking-tight flex items-center gap-2 hover:opacity-90 transition-opacity">
-          Chiang Ride 🛵
+      <header className="h-16 bg-white border-b flex items-center justify-between px-4 sticky top-0 z-50 shadow-sm shrink-0">
+        <Link href="/app" className="font-extrabold text-xl text-green-700 tracking-tight flex items-center gap-2">
+          <Image src="https://iili.io/fg6gAZb.md.png" alt="Chiang Ride" width={28} height={28} className="w-7 h-7" />
+          Chiang Ride
         </Link>
-        <div className="flex items-center gap-3 bg-black/10 px-3 py-1.5 rounded-full backdrop-blur-sm border border-white/10">
-          <span className={cn("text-xs font-bold transition-colors duration-300", !isShopMode ? "text-white" : "text-emerald-100/60")}>
+        <div className="flex items-center gap-2">
+          <span className={cn("text-xs font-medium", !isShopMode ? "text-green-700" : "text-gray-400")}>
             Renter
           </span>
           <button
             onClick={toggleMode}
             className={cn(
-              "relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-emerald-600 shadow-inner",
-              isShopMode ? "bg-orange-500 focus:ring-orange-500" : "bg-emerald-800 focus:ring-emerald-500"
+              "relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2",
+              isShopMode ? "bg-orange-500" : "bg-green-600"
             )}
           >
             <span
               className={cn(
-                "inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-300 shadow-sm",
+                "inline-block h-4 w-4 transform rounded-full bg-white transition-transform",
                 isShopMode ? "translate-x-6" : "translate-x-1"
               )}
             />
           </button>
-          <span className={cn("text-xs font-bold transition-colors duration-300", isShopMode ? "text-white" : "text-emerald-100/60")}>
+          <span className={cn("text-xs font-medium", isShopMode ? "text-orange-600" : "text-gray-400")}>
             Shop
           </span>
         </div>
       </header>
 
       {/* Main Content Area */}
-      <main className="flex-1 overflow-y-auto pb-24 md:pb-6 scroll-smooth">
-        <div className="container mx-auto max-w-2xl min-h-full px-4 pb-4 pt-8 md:px-6 md:pb-6 md:pt-12 animate-in fade-in duration-500">
+      <main className="flex-1 overflow-y-auto pb-20 md:pb-6">
+        <div className="container mx-auto max-w-2xl min-h-full p-4">
           {children}
         </div>
       </main>
 
       {/* Bottom Tab Bar (Mobile) */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl h-20 flex items-center justify-around px-4 z-50 md:hidden pb-safe rounded-t-3xl shadow-[0_-5px_20px_-5px_rgba(0,0,0,0.1)] transition-transform duration-300 ease-out border-none">
+      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t h-16 flex items-center justify-around px-2 z-50 md:hidden pb-safe">
         {!isShopMode ? (
           <>
             <NavItem href="/app" icon={Home} label="Home" active={pathname === '/app'} />

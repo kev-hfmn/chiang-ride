@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
 import { Loader2, Mail } from 'lucide-react'
 
@@ -34,8 +35,11 @@ export default function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8 bg-white p-8 shadow-lg rounded-2xl border border-gray-100">
         <div className="text-center">
-          <h2 className="mt-6 text-3xl font-extrabold tracking-tight text-gray-900">
-            Welcome Back! 🛵
+          <div className="flex justify-center mb-4">
+            <Image src="https://iili.io/fg6gAZb.md.png" alt="Chiang Ride" width={48} height={48} className="w-12 h-12" />
+          </div>
+          <h2 className="text-3xl font-extrabold tracking-tight text-gray-900">
+            Welcome Back!
           </h2>
           <p className="mt-2 text-sm text-gray-600">
             Enter your email to sign in or create an account.

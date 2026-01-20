@@ -1,6 +1,7 @@
 import { getAdminShop, getAdminInventory, getAdminBookings } from '@/lib/db/admin'
 import { AlertCircle, Calendar as CalendarIcon, ChevronRight } from 'lucide-react'
 import { format, addDays, isWithinInterval, parseISO, startOfDay, isSameDay } from 'date-fns'
+import Image from 'next/image'
 
 export default async function CalendarPage() {
   const shop = await getAdminShop()
@@ -47,7 +48,7 @@ export default async function CalendarPage() {
                 <div key={scooter.id} className="grid grid-cols-[200px_repeat(14,1fr)] border-b border-gray-50 hover:bg-gray-50 transition-colors">
                     <div className="p-4 flex items-center gap-3">
                          <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-sm shrink-0">
-                            🛵
+                            <Image src="https://iili.io/fg6gAZb.md.png" alt="Scooter" width={20} height={20} className="w-5 h-5" />
                          </div>
                          <div className="truncate">
                             <div className="font-bold text-gray-900 text-sm">{scooter.model}</div>
