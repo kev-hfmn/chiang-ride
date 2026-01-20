@@ -4,8 +4,11 @@ import Link from 'next/link'
 import { ArrowLeft, Save } from 'lucide-react'
 import { addScooterAction } from '@/app/actions/inventory'
 import { cn } from '@/lib/utils'
+import { useLanguage } from '@/lib/i18n/language-context'
 
 export default function NewScooterPage() {
+  const { t } = useLanguage()
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -14,8 +17,8 @@ export default function NewScooterPage() {
           <ArrowLeft className="w-6 h-6" />
         </Link>
         <div>
-          <h1 className="text-2xl font-extrabold text-gray-900">Add New Scooter</h1>
-          <p className="text-gray-500 text-sm">Expand your fleet.</p>
+          <h1 className="text-2xl font-extrabold text-gray-900">{t('addNewScooter')}</h1>
+          <p className="text-gray-500 text-sm">{t('expandFleet')}</p>
         </div>
       </div>
 
@@ -28,7 +31,7 @@ export default function NewScooterPage() {
         
         <div className="grid gap-6 sm:grid-cols-2">
             <div className="space-y-2">
-            <label htmlFor="brand" className="text-sm font-bold text-gray-900">Brand</label>
+            <label htmlFor="brand" className="text-sm font-bold text-gray-900">{t('brand')}</label>
             <select 
                 name="brand" 
                 id="brand"
@@ -43,12 +46,12 @@ export default function NewScooterPage() {
             </div>
 
             <div className="space-y-2">
-            <label htmlFor="model" className="text-sm font-bold text-gray-900">Model Name</label>
+            <label htmlFor="model" className="text-sm font-bold text-gray-900">{t('modelName')}</label>
             <input 
                 type="text" 
                 name="model" 
                 id="model" 
-                placeholder="e.g. Click 160, NMAX"
+                placeholder={t('exampleModel')}
                 className="w-full p-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:outline-none transition-all font-medium text-gray-900 placeholder-gray-500"
                 required
             />
@@ -57,7 +60,7 @@ export default function NewScooterPage() {
 
         <div className="grid gap-6 sm:grid-cols-3">
              <div className="space-y-2">
-                <label htmlFor="engine_cc" className="text-sm font-bold text-gray-900">Engine (cc)</label>
+                <label htmlFor="engine_cc" className="text-sm font-bold text-gray-900">{t('engineSize')}</label>
                 <input 
                     type="number" 
                     name="engine_cc" 
@@ -69,7 +72,7 @@ export default function NewScooterPage() {
             </div>
 
             <div className="space-y-2">
-                <label htmlFor="daily_price" className="text-sm font-bold text-gray-900">Daily Price (฿)</label>
+                <label htmlFor="daily_price" className="text-sm font-bold text-gray-900">{t('dailyPrice')}</label>
                 <input 
                     type="number" 
                     name="daily_price" 
@@ -81,7 +84,7 @@ export default function NewScooterPage() {
             </div>
 
             <div className="space-y-2">
-                <label htmlFor="deposit_amount" className="text-sm font-bold text-gray-900">Deposit (฿)</label>
+                <label htmlFor="deposit_amount" className="text-sm font-bold text-gray-900">{t('depositAmount')}</label>
                 <input 
                     type="number" 
                     name="deposit_amount" 
@@ -99,7 +102,7 @@ export default function NewScooterPage() {
                 className="w-full py-4 bg-orange-600 hover:bg-orange-700 active:bg-orange-800 text-white font-bold rounded-xl shadow-lg shadow-orange-200 flex items-center justify-center gap-2 transition-all transform active:scale-95"
             >
                 <Save className="w-5 h-5" />
-                Add to Fleet
+                {t('addToFleet')}
             </button>
         </div>
       </form>

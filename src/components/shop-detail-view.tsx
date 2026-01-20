@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { ArrowLeft, MapPin, ShieldCheck, Star } from 'lucide-react'
 import { useLanguage } from '@/lib/i18n/language-context'
-import { LanguageToggle } from './language-toggle'
+
 import { ScooterImage } from './scooter-image'
 
 interface Scooter {
@@ -46,7 +46,6 @@ export function ShopDetailView({ shop, scooters }: ShopDetailViewProps) {
             <ArrowLeft className="w-4 h-4" />
             {t('backToExplore')}
           </Link>
-          <LanguageToggle />
         </div>
 
         <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm space-y-4">

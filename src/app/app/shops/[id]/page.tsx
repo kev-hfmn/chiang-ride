@@ -42,7 +42,7 @@ export default async function ShopDetailPage({
           className="text-gray-500 hover:text-gray-900 text-sm font-bold flex items-center gap-1 mb-4"
         >
           <ArrowLeft className="w-4 h-4" />
-          {t('backToExplore')}
+          {t("backToExplore")}
         </Link>
 
         <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm space-y-4">
@@ -51,10 +51,12 @@ export default async function ShopDetailPage({
               <h1 className="text-3xl font-extrabold text-gray-900 mb-1">
                 {shop.name}
               </h1>
-              <div className="flex items-center gap-3 mt-2">
+              <div className="flex flex-col gap-2 mt-2">
                 <div className="flex items-center gap-1 text-gray-500 text-sm">
-                  <MapPin className="w-4 h-4 text-orange-500" />
-                  {shop.address || t('chiangMaiThailand')}
+                  <MapPin className="w-4 h-4 text-orange-500 shrink-0" />
+                  <span className="truncate">
+                    {shop.address || t("chiangMaiThailand")}
+                  </span>
                 </div>
                 {ratingStats.reviewCount > 0 && (
                   <RatingSummary
@@ -66,21 +68,21 @@ export default async function ShopDetailPage({
             </div>
             <div className="bg-orange-50 text-orange-700 font-bold px-3 py-1 rounded-full text-xs flex items-center gap-1">
               <Star className="w-3 h-3 fill-current" />
-              {t('verifiedPartner')}
+              {t("verifiedPartner")}
             </div>
           </div>
 
           <p className="text-gray-600 leading-relaxed font-medium">
-            {shop.description || t('defaultShopDescription')}
+            {shop.description || t("defaultShopDescription")}
           </p>
 
           <div className="bg-gray-50 rounded-2xl p-4 flex gap-3 text-sm text-gray-600">
             <ShieldCheck className="w-5 h-5 text-green-600 shrink-0" />
             <div>
               <span className="font-bold text-gray-900 block mb-1">
-                {t('depositPolicy')}
+                {t("depositPolicy")}
               </span>
-              {shop.deposit_policy_text || t('defaultDepositPolicy')}
+              {shop.deposit_policy_text || t("defaultDepositPolicy")}
             </div>
           </div>
         </div>
@@ -89,7 +91,7 @@ export default async function ShopDetailPage({
       {/* Fleet */}
       <div className="space-y-6">
         <h2 className="text-xl font-extrabold text-gray-900">
-          {t('availableBikes')}
+          {t("availableBikes")}
         </h2>
         <div className="grid gap-6">
           {scooters?.map((scooter) => (
@@ -135,11 +137,13 @@ export default async function ShopDetailPage({
                           className={`w-2 h-2 rounded-full ${scooter.is_active ? "bg-green-500" : "bg-red-400"}`}
                         ></span>
                         <span className="text-xs font-medium text-gray-500">
-                          {scooter.is_active ? t('available') : t('unavailable')}
+                          {scooter.is_active
+                            ? t("available")
+                            : t("unavailable")}
                         </span>
                       </div>
                       <span className="text-xs font-bold text-orange-600 bg-orange-50 px-3 py-1.5 rounded-full group-hover:bg-orange-600 group-hover:text-white transition-colors">
-                        {t('bookNow')}
+                        {t("bookNow")}
                       </span>
                     </div>
                   </div>

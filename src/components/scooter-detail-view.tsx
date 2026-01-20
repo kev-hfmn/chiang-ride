@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { ArrowLeft, MapPin, ShieldCheck, Fuel, Gauge } from 'lucide-react'
 import { useLanguage } from '@/lib/i18n/language-context'
-import { LanguageToggle } from './language-toggle'
+
 import { AvailabilityGrid } from './availability-grid'
 import BookingForm from './booking-form'
 import { ScooterImage } from './scooter-image'
@@ -59,7 +59,6 @@ export function ScooterDetailView({ scooter, availability }: ScooterDetailViewPr
             <ArrowLeft className="w-4 h-4" />
             {t('backToHome')}
           </Link>
-          <LanguageToggle />
         </div>
       </div>
 

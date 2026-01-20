@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { MapPin, ShieldCheck, Store } from 'lucide-react'
 import { useLanguage } from '@/lib/i18n/language-context'
-import { LanguageToggle } from './language-toggle'
 
 interface Shop {
   id: string
@@ -30,7 +29,6 @@ export function ShopsListView({ shops }: ShopsListViewProps) {
           <h1 className="text-2xl font-extrabold text-gray-900">{t('exploreShops')}</h1>
           <p className="text-gray-500 text-sm">{t('findTrustedRentals')}</p>
         </div>
-        <LanguageToggle />
       </div>
 
       {/* Shop List */}

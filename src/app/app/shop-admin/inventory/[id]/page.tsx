@@ -4,9 +4,11 @@ import { ArrowLeft, Save, Trash2, AlertTriangle } from 'lucide-react'
 import { updateScooterAction } from '@/app/actions/inventory'
 import { getScooter } from '@/lib/db/shops'
 import { getAdminShop } from '@/lib/db/admin'
+import { getTranslations } from '@/lib/i18n/server'
 
 export default async function EditScooterPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
+  const { t } = await getTranslations()
   
   // Fetch data
   const shop = await getAdminShop()
@@ -21,9 +23,9 @@ export default async function EditScooterPage({ params }: { params: Promise<{ id
     return (
         <div className="p-8 text-center space-y-4">
             <AlertTriangle className="w-12 h-12 text-red-500 mx-auto" />
-            <h1 className="text-xl font-bold">Unauthorized</h1>
-            <p className="text-gray-500">You do not have permission to edit this scooter.</p>
-            <Link href="/app/shop-admin/inventory" className="text-blue-500 hover:underline">Return to Inventory</Link>
+            <h1 className="text-xl font-bold">{t('unauthorized')}</h1>
+            <p className="text-gray-500">{t('noPermissionEdit')}</p>
+            <Link href="/app/shop-admin/inventory" className="text-blue-500 hover:underline">{t('returnToInventory')}</Link>
         </div>
     )
   }
@@ -38,8 +40,8 @@ export default async function EditScooterPage({ params }: { params: Promise<{ id
           <ArrowLeft className="w-6 h-6" />
         </Link>
         <div>
-          <h1 className="text-2xl font-extrabold text-gray-900">Edit Scooter</h1>
-          <p className="text-gray-500 text-sm">Update details and availability.</p>
+          <h1 className="text-2xl font-extrabold text-gray-900">{t('editScooter')}</h1>
+          <p className="text-gray-500 text-sm">{t('updateDetails')}</p>
         </div>
       </div>
 
@@ -50,7 +52,7 @@ export default async function EditScooterPage({ params }: { params: Promise<{ id
         
         <div className="grid gap-6 sm:grid-cols-2">
             <div className="space-y-2">
-            <label htmlFor="brand" className="text-sm font-bold text-gray-900">Brand</label>
+            <label htmlFor="brand" className="text-sm font-bold text-gray-900">{t('brand')}</label>
             <select 
                 name="brand" 
                 id="brand"
@@ -66,13 +68,13 @@ export default async function EditScooterPage({ params }: { params: Promise<{ id
             </div>
 
             <div className="space-y-2">
-            <label htmlFor="model" className="text-sm font-bold text-gray-900">Model Name</label>
+            <label htmlFor="model" className="text-sm font-bold text-gray-900">{t('modelName')}</label>
             <input 
                 type="text" 
                 name="model" 
                 id="model" 
                 defaultValue={scooter.model}
-                placeholder="e.g. Click 160, NMAX"
+                placeholder={t('exampleModel')}
                 className="w-full p-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:outline-none transition-all font-medium text-gray-900 placeholder-gray-500"
                 required
             />
@@ -81,7 +83,7 @@ export default async function EditScooterPage({ params }: { params: Promise<{ id
 
         <div className="grid gap-6 sm:grid-cols-3">
              <div className="space-y-2">
-                <label htmlFor="engine_cc" className="text-sm font-bold text-gray-900">Engine (cc)</label>
+                <label htmlFor="engine_cc" className="text-sm font-bold text-gray-900">{t('engineSize')}</label>
                 <input 
                     type="number" 
                     name="engine_cc" 
@@ -93,7 +95,7 @@ export default async function EditScooterPage({ params }: { params: Promise<{ id
             </div>
 
             <div className="space-y-2">
-                <label htmlFor="daily_price" className="text-sm font-bold text-gray-900">Daily Price (฿)</label>
+                <label htmlFor="daily_price" className="text-sm font-bold text-gray-900">{t('dailyPrice')}</label>
                 <input 
                     type="number" 
                     name="daily_price" 
@@ -105,7 +107,7 @@ export default async function EditScooterPage({ params }: { params: Promise<{ id
             </div>
 
             <div className="space-y-2">
-                <label htmlFor="deposit_amount" className="text-sm font-bold text-gray-900">Deposit (฿)</label>
+                <label htmlFor="deposit_amount" className="text-sm font-bold text-gray-900">{t('depositAmount')}</label>
                 <input 
                     type="number" 
                     name="deposit_amount" 
@@ -125,7 +127,7 @@ export default async function EditScooterPage({ params }: { params: Promise<{ id
                 className="w-5 h-5 text-orange-600 rounded focus:ring-orange-500 border-gray-300"
             />
             <label htmlFor="is_active" className="text-gray-900 font-medium select-none">
-                Available for Rent (Active)
+                {t('availableForRent')}
             </label>
         </div>
 
@@ -135,7 +137,7 @@ export default async function EditScooterPage({ params }: { params: Promise<{ id
                 className="flex-1 py-4 bg-orange-600 hover:bg-orange-700 active:bg-orange-800 text-white font-bold rounded-xl shadow-lg shadow-orange-200 flex items-center justify-center gap-2 transition-all transform active:scale-95"
             >
                 <Save className="w-5 h-5" />
-                Save Changes
+                {t('saveChanges')}
             </button>
         </div>
       </form>
