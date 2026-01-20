@@ -2,7 +2,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { X } from 'lucide-react'
+import { X, Copy, Check } from 'lucide-react'
 import QRCode from 'react-qr-code'
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
@@ -17,6 +17,7 @@ interface QRCodeModalProps {
 
 export function QRCodeModal({ isOpen, onClose, bookingId, vehicleModel }: QRCodeModalProps) {
   const [status, setStatus] = useState<string>('waiting')
+  const [copied, setCopied] = useState(false)
   const supabase = createClient()
   const router = useRouter()
 
@@ -61,6 +62,12 @@ export function QRCodeModal({ isOpen, onClose, bookingId, vehicleModel }: QRCode
   // For dev, we assume localhost or the current origin.
   const origin = typeof window !== 'undefined' ? window.location.origin : ''
   const startUrl = `${origin}/app/rental/start/${bookingId}`
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(startUrl)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
 
   return (
     <AnimatePresence>
@@ -116,10 +123,32 @@ export function QRCodeModal({ isOpen, onClose, bookingId, vehicleModel }: QRCode
                             <p className="font-medium text-gray-900">Ask {vehicleModel} renter to scan</p>
                             <p className="text-sm text-gray-500">They will be guided to take photos</p>
                         </div>
-                        
-                        <div className="flex items-center gap-2 text-xs font-mono text-gray-400 bg-gray-50 px-3 py-1 rounded-full">
-                            <div className="w-2 h-2 rounded-full bg-orange-400 animate-pulse" />
-                            Waiting for scan...
+
+                        <div className="w-full space-y-4 pt-4">
+                            <div className="relative group">
+                                <div className="absolute -top-5 left-0 text-[10px] font-bold text-gray-400 uppercase tracking-widest px-1">Presentation Link</div>
+                                <div className="flex items-center gap-2 bg-gray-50 border border-gray-100 p-3 rounded-2xl transition-all hover:border-blue-200 hover:bg-blue-50/30">
+                                    <div className="flex-1 text-[11px] font-mono text-gray-500/80 truncate select-all">
+                                        {startUrl}
+                                    </div>
+                                    <button 
+                                        onClick={copyToClipboard}
+                                        className="p-2 hover:bg-white hover:shadow-sm rounded-xl transition-all text-gray-400 hover:text-blue-600"
+                                        title="Copy link"
+                                    >
+                                        {copied ? (
+                                            <Check className="w-4 h-4 text-green-500" />
+                                        ) : (
+                                            <Copy className="w-4 h-4" />
+                                        )}
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div className="flex items-center justify-center gap-2 text-[10px] font-bold text-gray-300 uppercase tracking-widest">
+                                <div className="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse" />
+                                Waiting for scan
+                            </div>
                         </div>
                     </>
                 ) : (
