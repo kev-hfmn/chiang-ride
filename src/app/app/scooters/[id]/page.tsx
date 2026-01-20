@@ -29,9 +29,12 @@ export default async function ScooterDetailPage({ params }: { params: Promise<{ 
 
       {/* Scooter Image */}
       <div className="bg-gray-100 rounded-3xl aspect-video flex items-center justify-center overflow-hidden">
-        <ScooterImage 
-          model={scooter.model} 
-          className="w-full h-full object-cover" 
+        <ScooterImage
+          brand={scooter.brand}
+          model={scooter.model}
+          scooterId={scooter.id}
+          imageUrl={scooter.image_url}
+          className="w-full h-full object-cover"
         />
       </div>
 

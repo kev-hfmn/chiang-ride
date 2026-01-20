@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { Home, Search, Store, User, Bike, Briefcase } from 'lucide-react'
+import { Home, Search, User, Bike, Briefcase, Settings, Calendar, CalendarDays } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface AppShellProps {
@@ -66,14 +66,6 @@ export default function AppShell({ children }: AppShellProps) {
       {/* Main Content Area */}
       <main className="flex-1 overflow-y-auto pb-20 md:pb-6">
         <div className="container mx-auto max-w-2xl min-h-full p-4">
-           {/* Context Banner (Optional) */}
-            {isShopMode && (
-              <div className="mb-4 p-3 bg-orange-50 border border-orange-100 rounded-lg text-xs text-orange-800 flex items-center gap-2">
-                <Briefcase className="w-4 h-4" />
-                <span>Viewing as Shop Owner (Demo Mode)</span>
-              </div>
-            )}
-            
           {children}
         </div>
       </main>
@@ -91,8 +83,8 @@ export default function AppShell({ children }: AppShellProps) {
           <>
             <NavItem href="/app/shop-admin" icon={Briefcase} label="Dashboard" active={pathname === '/app/shop-admin'} />
             <NavItem href="/app/shop-admin/inventory" icon={Bike} label="Fleet" active={pathname.includes('inventory')} />
-            <NavItem href="/app/shop-admin/calendar" icon={Store} label="Bookings" active={pathname.includes('calendar')} />
-            <NavItem href="/app/profile" icon={User} label="Settings" active={pathname.includes('profile')} />
+            <NavItem href="/app/shop-admin/bookings" icon={Calendar} label="Bookings" active={pathname.includes('bookings')} />
+            <NavItem href="/app/shop-admin/settings" icon={Settings} label="Settings" active={pathname.includes('settings')} />
           </>
         )}
       </nav>
@@ -108,11 +100,15 @@ export default function AppShell({ children }: AppShellProps) {
                 <DesktopNavItem href="/app" icon={Home} label="Home" active={pathname === '/app'} />
                 <DesktopNavItem href="/app/shops" icon={Search} label="Explore Shops" active={pathname === '/app/shops'} />
                 <DesktopNavItem href="/app/bookings" icon={Bike} label="My Rides" active={pathname.includes('bookings')} />
+                <DesktopNavItem href="/app/profile" icon={User} label="Profile" active={pathname.includes('profile')} />
               </>
             ) : (
               <>
                 <DesktopNavItem href="/app/shop-admin" icon={Briefcase} label="Dashboard" active={pathname === '/app/shop-admin'} />
                 <DesktopNavItem href="/app/shop-admin/inventory" icon={Bike} label="Fleet Management" active={pathname.includes('inventory')} />
+                <DesktopNavItem href="/app/shop-admin/calendar" icon={CalendarDays} label="Availability" active={pathname.includes('calendar')} />
+                <DesktopNavItem href="/app/shop-admin/bookings" icon={Calendar} label="Bookings" active={pathname.includes('bookings')} />
+                <DesktopNavItem href="/app/shop-admin/settings" icon={Settings} label="Shop Settings" active={pathname.includes('settings')} />
               </>
             )}
          </nav>

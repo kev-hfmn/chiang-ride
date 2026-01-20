@@ -87,29 +87,29 @@ export default async function ShopAdminPage() {
       )}
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
-            <div className="flex items-center gap-3 text-gray-500 mb-1">
-                <Bike className="w-5 h-5" />
-                <span className="text-xs font-bold uppercase tracking-wider">Fleet Size</span>
+      <div className="grid grid-cols-3 gap-3">
+        <div className="bg-white p-3 sm:p-5 rounded-xl sm:rounded-2xl border border-gray-100 shadow-sm">
+            <div className="flex items-center gap-2 text-gray-500 mb-1">
+                <Bike className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">Fleet</span>
             </div>
-            <div className="text-3xl font-extrabold text-gray-900">{stats.totalScooters}</div>
-        </div>
-        
-        <div className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
-            <div className="flex items-center gap-3 text-green-600 mb-1">
-                <Users className="w-5 h-5" />
-                <span className="text-xs font-bold uppercase tracking-wider">Active Rentals</span>
-            </div>
-            <div className="text-3xl font-extrabold text-gray-900">{stats.activeBookings}</div>
+            <div className="text-2xl sm:text-3xl font-extrabold text-gray-900">{stats.totalScooters}</div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
-            <div className="flex items-center gap-3 text-orange-500 mb-1">
-                <Clock className="w-5 h-5" />
-                <span className="text-xs font-bold uppercase tracking-wider">Pending Requests</span>
+        <div className="bg-white p-3 sm:p-5 rounded-xl sm:rounded-2xl border border-gray-100 shadow-sm">
+            <div className="flex items-center gap-2 text-green-600 mb-1">
+                <Users className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">Active</span>
             </div>
-            <div className="text-3xl font-extrabold text-gray-900">{stats.pendingRequests}</div>
+            <div className="text-2xl sm:text-3xl font-extrabold text-gray-900">{stats.activeBookings}</div>
+        </div>
+
+        <div className="bg-white p-3 sm:p-5 rounded-xl sm:rounded-2xl border border-gray-100 shadow-sm">
+            <div className="flex items-center gap-2 text-orange-500 mb-1">
+                <Clock className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">Pending</span>
+            </div>
+            <div className="text-2xl sm:text-3xl font-extrabold text-gray-900">{stats.pendingRequests}</div>
         </div>
       </div>
 

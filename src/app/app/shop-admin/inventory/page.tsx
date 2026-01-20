@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Plus, Settings, AlertCircle } from 'lucide-react'
+import { Plus, Settings, AlertCircle, Calendar } from 'lucide-react'
 import { getAdminShop, getAdminInventory } from '@/lib/db/admin'
 
 export default async function InventoryPage() {
@@ -24,13 +24,22 @@ export default async function InventoryPage() {
            <h1 className="text-2xl font-extrabold text-gray-900">Fleet Inventory</h1>
            <p className="text-gray-500 text-sm">Manage your bikes and pricing.</p>
         </div>
-        <Link 
-          href="/app/shop-admin/inventory/new" 
-          className="inline-flex items-center gap-2 bg-orange-600 text-white px-4 py-2 rounded-xl font-bold shadow-md hover:bg-orange-700 transition-colors"
-        >
-          <Plus className="w-5 h-5" />
-          Add Scooter
-        </Link>
+        <div className="flex gap-2">
+          <Link
+            href="/app/shop-admin/calendar"
+            className="inline-flex items-center gap-2 bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-xl font-bold hover:bg-gray-50 transition-colors"
+          >
+            <Calendar className="w-5 h-5" />
+            <span className="hidden sm:inline">Availability</span>
+          </Link>
+          <Link
+            href="/app/shop-admin/inventory/new"
+            className="inline-flex items-center gap-2 bg-orange-600 text-white px-4 py-2 rounded-xl font-bold shadow-md hover:bg-orange-700 transition-colors"
+          >
+            <Plus className="w-5 h-5" />
+            <span className="hidden sm:inline">Add Scooter</span>
+          </Link>
+        </div>
       </div>
 
       <div className="grid gap-4">
@@ -63,9 +72,12 @@ export default async function InventoryPage() {
                 </div>
               </div>
 
-              <button className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded-lg">
+              <Link 
+                href={`/app/shop-admin/inventory/${scooter.id}`}
+                className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded-lg"
+              >
                 <Settings className="w-5 h-5" />
-              </button>
+              </Link>
             </div>
           ))
         )}

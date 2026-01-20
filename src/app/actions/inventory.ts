@@ -45,3 +45,40 @@ export async function addScooterAction(formData: FormData) {
   revalidatePath('/app')
   redirect('/app/shop-admin/inventory')
 }
+
+export async function updateScooterAction(id: string, formData: FormData) {
+  const shop = await getAdminShop()
+  if (!shop) throw new Error('Shop not found')
+
+  const model = formData.get('model') as string
+  const brand = formData.get('brand') as string
+  const engine_cc = parseInt(formData.get('engine_cc') as string) || 125
+  const daily_price = parseInt(formData.get('daily_price') as string) || 250
+  const deposit_amount = parseInt(formData.get('deposit_amount') as string) || 1000
+  const is_active = formData.get('is_active') === 'on'
+
+  const supabase = createAdminClient()
+
+  const { error } = await supabase
+    .from('scooters')
+    .update({
+      brand,
+      model,
+      engine_cc,
+      daily_price,
+      deposit_amount,
+      is_active
+    })
+    .eq('id', id)
+    // Extra safety: ensure this scooter actually belongs to this shop
+    .eq('shop_id', shop.id)
+
+  if (error) {
+    console.error('Update Scooter Error:', error)
+    throw new Error(`Failed to update scooter: ${error.message}`)
+  }
+
+  revalidatePath('/app/shop-admin/inventory')
+  revalidatePath('/app')
+  redirect('/app/shop-admin/inventory')
+}

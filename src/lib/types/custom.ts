@@ -5,10 +5,10 @@ export interface Shop {
   description?: string
   address?: string
   city: string
-  latitude?: number
-  longitude?: number
+  location_lat?: number
+  location_lng?: number
   is_verified: boolean
-  image_url?: string // Placeholder if we add images later
+  image_url?: string
   deposit_amount?: number
   deposit_policy_text?: string
 }
@@ -27,7 +27,7 @@ export interface Scooter {
   image_url?: string
 }
 
-export type BookingStatus = 'pending' | 'confirmed' | 'active' | 'completed' | 'cancelled' | 'maintenance'
+export type BookingStatus = 'requested' | 'pending' | 'confirmed' | 'active' | 'completed' | 'cancelled' | 'rejected' | 'maintenance'
 
 export interface Booking {
   id: string
@@ -38,6 +38,7 @@ export interface Booking {
   end_date: string // ISO date string
   status: BookingStatus
   total_price: number
+  total_days?: number
   customer_name?: string
   customer_contact?: string
   created_at: string

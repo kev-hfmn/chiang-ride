@@ -9,7 +9,9 @@ export async function updateBookingStatusAction(formData: FormData) {
     const bookingId = formData.get('booking_id') as string
     const status = formData.get('status') as string
 
-    if (!bookingId || !status) return { error: 'Invalid Data' }
+    if (!bookingId || !status) {
+        throw new Error('Invalid Data')
+    }
 
     try {
         const { error } = await supabase
@@ -24,6 +26,6 @@ export async function updateBookingStatusAction(formData: FormData) {
         revalidatePath('/app/bookings') // Renter view
     } catch (error) {
         console.error('Error updating booking:', error)
-        return { error: 'Failed to update booking' }
+        throw new Error('Failed to update booking')
     }
 }

@@ -65,7 +65,7 @@ export async function getAdminBookings(shopId: string) {
     .order('start_date', { ascending: false })
 
   if (error) {
-    console.error('Error fetching bookings:', error)
+    console.error('Error fetching bookings:', error.message, error.details, error.hint)
     return []
   }
 

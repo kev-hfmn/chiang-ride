@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { getFeaturedScooters } from '@/lib/db/shops'
+import { getScooterImage } from '@/lib/scooter-images'
 import { Search, MapPin, SlidersHorizontal } from 'lucide-react'
 import Link from 'next/link'
 
@@ -77,7 +78,7 @@ export default async function DashboardPage() {
               >
                 <div className="h-32 bg-gray-200 relative mb-2 overflow-hidden">
                   <img
-                    src={scooter.image_url || 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=400&auto=format&fit=crop'}
+                    src={scooter.image_url || getScooterImage(scooter.brand, scooter.model, scooter.id)}
                     alt={`${scooter.brand} ${scooter.model}`}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />

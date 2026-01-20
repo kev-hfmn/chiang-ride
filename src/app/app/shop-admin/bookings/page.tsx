@@ -1,10 +1,11 @@
-import { getAdminBookings } from '@/lib/db/admin'
+import { getAdminBookings, getAdminShop } from '@/lib/db/admin'
 import { format } from 'date-fns'
 import { Calendar, CheckCircle, Clock, Smartphone, User, XCircle, MoreHorizontal } from 'lucide-react'
 import { updateBookingStatusAction } from '@/app/actions/bookings'
 
 export default async function ShopBookingsPage() {
-  const bookings = await getAdminBookings()
+  const shop = await getAdminShop()
+  const bookings = shop ? await getAdminBookings(shop.id) : []
 
   const getStatusColor = (status: string) => {
     switch (status) {
