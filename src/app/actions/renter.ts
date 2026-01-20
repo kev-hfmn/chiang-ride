@@ -4,7 +4,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-export async function createBookingRequestAction(formData: FormData) {
+export async function createBookingRequestAction(prevState: any, formData: FormData) {
   const supabase = createAdminClient();
 
   const scooterId = formData.get("scooter_id") as string;

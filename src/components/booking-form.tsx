@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useActionState } from "react";
 import { createBookingRequestAction } from "@/app/actions/renter";
 import { Calendar as CalendarIcon, Loader2 } from "lucide-react";
 import { format, differenceInDays, addDays } from "date-fns";
@@ -13,7 +13,9 @@ interface BookingFormProps {
 export default function BookingForm({ scooter, shopId }: BookingFormProps) {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [state, formAction, isPending] = useActionState(createBookingRequestAction, {
+    error: undefined as string | undefined,
+  });
 
   const today = new Date().toISOString().split("T")[0];
 
@@ -32,12 +34,11 @@ export default function BookingForm({ scooter, shopId }: BookingFormProps) {
 
   const totals = calculateTotal();
 
-  console.log(totals, isSubmitting);
+  console.log(totals, isPending);
 
   return (
     <form
-      action={createBookingRequestAction}
-      onSubmit={() => setIsSubmitting(true)}
+      action={formAction}
       className="bg-gray-50 rounded-xl p-4 space-y-4"
     >
       <input type="hidden" name="scooter_id" value={scooter.id} />
@@ -76,6 +77,10 @@ export default function BookingForm({ scooter, shopId }: BookingFormProps) {
         </div>
       </div>
 
+      {state?.error && (
+        <p className="text-red-500 text-xs font-bold">{state.error}</p>
+      )}
+
       {totals && (
         <div className="flex justify-between items-center py-2 border-t border-gray-200 mt-2">
           <span className="text-sm font-bold text-gray-500">
@@ -90,10 +95,10 @@ export default function BookingForm({ scooter, shopId }: BookingFormProps) {
 
       <button
         type="submit"
-        disabled={!totals || isSubmitting}
+        disabled={!totals || isPending}
         className="w-full bg-black text-white rounded-lg py-3 font-bold text-sm hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
       >
-        {isSubmitting ? (
+        {isPending ? (
           <>
             <Loader2 className="w-4 h-4 animate-spin" />
             Sending Request...
