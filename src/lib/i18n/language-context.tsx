@@ -12,12 +12,21 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
 const STORAGE_KEY = 'chiang-ride-language'
+const COOKIE_NAME = 'chiang-ride-language'
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>('en')
 
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY) as Language | null
+    // Try cookie first, then localStorage
+    const getCookie = (name: string) => {
+      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'))
+      return match ? (match[2] as Language) : null
+    }
+
+    const cookieLang = getCookie(COOKIE_NAME)
+    const stored = (cookieLang || localStorage.getItem(STORAGE_KEY)) as Language | null
+    
     if (stored && (stored === 'en' || stored === 'th')) {
       setLanguageState(stored)
     }
@@ -26,6 +35,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const setLanguage = (lang: Language) => {
     setLanguageState(lang)
     localStorage.setItem(STORAGE_KEY, lang)
+    // Set cookie for server components (expires in 1 year)
+    document.cookie = `${COOKIE_NAME}=${lang}; path=/; max-age=${365 * 24 * 60 * 60}`
+    // Force a router refresh to update server components
+    window.location.reload()
   }
 
   const t = (key: TranslationKey): string => {
