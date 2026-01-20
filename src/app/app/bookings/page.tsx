@@ -3,6 +3,7 @@ import { createAdminClient } from "@/lib/supabase/admin"; // Using admin for dem
 import { Calendar, Clock, MapPin, Smartphone } from "lucide-react";
 import { format } from "date-fns";
 import Link from "next/link";
+import Image from "next/image";
 
 async function getMyRentals() {
   const supabase = createAdminClient();
@@ -50,8 +51,8 @@ export default async function MyRentalsPage() {
       <div className="space-y-4">
         {rentals.length === 0 ? (
           <div className="p-10 text-center bg-white rounded-2xl border border-dashed border-gray-200 space-y-3">
-            <div className="mx-auto w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center text-4xl">
-              🛵
+            <div className="mx-auto w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center">
+              <Image src="https://iili.io/fg6gAZb.md.png" alt="Chiang Ride" width={32} height={32} className="w-8 h-8" />
             </div>
             <h3 className="font-bold text-gray-900">No trips yet</h3>
             <p className="text-gray-500 text-sm">

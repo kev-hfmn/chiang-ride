@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { Home, Search, User, Bike, Briefcase, Settings, Calendar, CalendarDays } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -37,7 +38,8 @@ export default function AppShell({ children }: AppShellProps) {
       {/* Top Header */}
       <header className="h-16 bg-white border-b flex items-center justify-between px-4 sticky top-0 z-50 shadow-sm shrink-0">
         <Link href="/app" className="font-extrabold text-xl text-green-700 tracking-tight flex items-center gap-2">
-          Chiang Ride 🛵
+          <Image src="https://iili.io/fg6gAZb.md.png" alt="Chiang Ride" width={28} height={28} className="w-7 h-7" />
+          Chiang Ride
         </Link>
         <div className="flex items-center gap-2">
           <span className={cn("text-xs font-medium", !isShopMode ? "text-green-700" : "text-gray-400")}>

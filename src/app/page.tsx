@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { CheckCircle, Shield, MapPin, Search, Camera, Star, Calendar, FileText, Users, MessageCircle, Bike, Clock, CreditCard, ArrowRight } from 'lucide-react'
 
 export default function Home() {
@@ -7,7 +8,7 @@ export default function Home() {
       {/* Header */}
       <header className="px-4 lg:px-6 h-16 flex items-center border-b bg-white/80 backdrop-blur-md sticky top-0 z-50">
         <Link className="flex items-center justify-center gap-2 font-bold text-xl tracking-tight text-green-700" href="/">
-          <span className="text-2xl">🛵</span>
+          <Image src="https://iili.io/fg6gAZb.md.png" alt="Chiang Ride" width={32} height={32} className="w-8 h-8" />
           <span>Chiang Ride</span>
         </Link>
         <nav className="ml-auto flex items-center gap-4 sm:gap-6">
@@ -509,7 +510,7 @@ export default function Home() {
         <div className="container px-4 md:px-6 mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-2 text-white font-bold text-lg">
-              <span className="text-2xl">🛵</span>
+              <Image src="https://iili.io/fg6gAZb.md.png" alt="Chiang Ride" width={32} height={32} className="w-8 h-8" />
               <span>Chiang Ride</span>
             </div>
             <nav className="flex flex-wrap justify-center gap-6 text-sm">
