@@ -5,7 +5,7 @@ import ShopMapWrapper from "@/components/shop-map-wrapper";
 import { getAllShopsWithRatings } from "@/lib/db/reviews";
 import { RatingBadge } from "@/components/review-card";
 import { getTranslations } from "@/lib/i18n/server";
-import { LanguageToggle } from "@/components/language-toggle";
+
 
 export const revalidate = 0;
 
@@ -34,7 +34,6 @@ export default async function ShopsPage() {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <LanguageToggle />
           <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
             <Filter className="w-4 h-4" />
             {t('filters')}

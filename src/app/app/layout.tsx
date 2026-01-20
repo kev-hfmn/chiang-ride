@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import AppShell from './app-shell'
+import { LanguageProvider } from '@/lib/i18n/language-context'
 
 export default function AppLayout({
   children,
@@ -7,8 +8,10 @@ export default function AppLayout({
   children: React.ReactNode
 }) {
   return (
-    <AppShell>
-      {children}
-    </AppShell>
+    <LanguageProvider>
+      <AppShell>
+        {children}
+      </AppShell>
+    </LanguageProvider>
   )
 }

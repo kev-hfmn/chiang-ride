@@ -1,5 +1,6 @@
 import { getAdminBookings, getAdminShop } from '@/lib/db/admin'
 import { format } from 'date-fns'
+import { getTranslations } from '@/lib/i18n/server'
 import { Calendar, CheckCircle, Clock, Smartphone, User, XCircle, MoreHorizontal } from 'lucide-react'
 import { updateBookingStatusAction } from '@/app/actions/bookings'
 
@@ -18,16 +19,18 @@ export default async function ShopBookingsPage() {
     }
   }
 
+  const { t } = await getTranslations()
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-         <h1 className="text-2xl font-extrabold text-gray-900">Bookings</h1>
+         <h1 className="text-2xl font-extrabold text-gray-900">{t('bookings')}</h1>
       </div>
 
       <div className="space-y-4">
         {bookings?.length === 0 ? (
            <div className="p-10 text-center bg-white rounded-2xl border border-dashed border-gray-200 text-gray-400">
-              No bookings found.
+              {t('noBookings')}
            </div>
         ) : bookings?.map((booking) => (
           <div key={booking.id} className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
@@ -36,7 +39,13 @@ export default async function ShopBookingsPage() {
                 <div className="space-y-3">
                     <div className="flex items-center gap-3">
                         <span className={`px-2 py-1 rounded-md text-xs font-bold uppercase tracking-wide ${getStatusColor(booking.status)}`}>
-                            {booking.status}
+                            {booking.status === 'active' ? t('statusActive') : 
+                             booking.status === 'confirmed' ? t('statusConfirmed') :
+                             booking.status === 'completed' ? t('statusCompleted') :
+                             booking.status === 'cancelled' ? t('statusCancelled') :
+                             booking.status === 'rejected' ? t('statusRejected') :
+                             booking.status === 'pending' || booking.status === 'requested' ? t('statusPending') :
+                             booking.status}
                         </span>
                         <span className="text-xs text-gray-400 font-mono">#{booking.id.slice(0, 6)}</span>
                     </div>
@@ -46,10 +55,10 @@ export default async function ShopBookingsPage() {
                             <User className="w-5 h-5" />
                         </div>
                         <div>
-                            <h3 className="font-bold text-gray-900 leading-tight">{booking.customer_name || 'Guest User'}</h3>
+                            <h3 className="font-bold text-gray-900 leading-tight">{booking.customer_name || t('guestUser')}</h3>
                             <div className="flex items-center gap-2 text-xs text-gray-500">
                                 <Smartphone className="w-3 h-3" />
-                                {booking.customer_contact || 'No contact info'}
+                                {booking.customer_contact || t('noContactInfo')}
                             </div>
                         </div>
                     </div>
@@ -73,7 +82,7 @@ export default async function ShopBookingsPage() {
                 <div className="flex flex-row sm:flex-col justify-between items-end gap-4 min-w-[120px]">
                     <div className="text-right">
                         <div className="text-2xl font-extrabold text-gray-900">{booking.total_price}฿</div>
-                        <div className="text-xs text-gray-400">Total</div>
+                        <div className="text-xs text-gray-400">{t('total')}</div>
                     </div>
 
                     {(booking.status === 'requested' || booking.status === 'pending') && (
@@ -90,7 +99,7 @@ export default async function ShopBookingsPage() {
                                <input type="hidden" name="status" value="active" />
                                <button className="flex-1 sm:flex-initial px-4 py-2 bg-black text-white rounded-lg font-bold text-sm hover:bg-gray-800 transition-colors flex items-center justify-center gap-2 shadow-sm">
                                    <CheckCircle className="w-4 h-4" />
-                                   Accept
+                                   {t('accept')}
                                </button>
                            </form>
                        </div>
@@ -101,7 +110,7 @@ export default async function ShopBookingsPage() {
                               <input type="hidden" name="booking_id" value={booking.id} />
                               <input type="hidden" name="status" value="completed" />
                               <button className="w-full sm:w-auto px-4 py-2 bg-green-50 text-green-700 hover:bg-green-100 rounded-lg font-bold text-sm transition-colors border border-green-200">
-                                  Mark Completed
+                                  {t('markCompleted')}
                               </button>
                         </form>
                     )}

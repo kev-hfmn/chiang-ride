@@ -7,7 +7,7 @@ export default function Home() {
       {/* Header */}
       <header className="px-4 lg:px-6 h-16 flex items-center border-b bg-white sticky top-0 z-50">
         <Link className="flex items-center justify-center font-bold text-xl tracking-tight text-green-700" href="#">
-          Chiang Ride 🛵
+          ChiangRide 🛵
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6">
           <Link className="text-sm font-medium text-gray-700 hover:text-green-700 transition-colors" href="/app">

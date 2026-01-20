@@ -37,6 +37,86 @@ export const translations = {
 
     // Common
     chiangMaiThailand: 'Chiang Mai, Thailand',
+
+    // Shop Admin Dashboard
+    partnerDashboard: 'Partner Dashboard',
+    welcomeBack: 'Welcome back',
+    settings: 'Settings',
+    addBike: 'Add Bike',
+    demoModeActive: 'Demo Mode Active',
+    demoModeMessage: "We couldn't find your shop, so we loaded a demo profile.",
+    fleet: 'Fleet',
+    activeBookings: 'Active',
+    pendingRequests: 'Pending',
+    recentActivity: 'Recent Activity',
+    viewAll: 'View All',
+    noRecentBookings: 'No recent bookings',
+    days: 'days',
+
+    guest: 'Guest',
+
+    // Shop Admin - Inventory
+    fleetInventory: 'Fleet Inventory',
+    manageInventory: 'Manage your bikes and pricing.',
+    availabilityLink: 'Availability',
+    addScooter: 'Add Scooter',
+    noScooters: 'No scooters in your fleet yet.',
+    shopNotFound: 'Shop Not Found',
+    contactSupport: 'Please log in or contact support.',
+    deposit: 'Deposit',
+
+    // Shop Admin - Bookings
+    bookings: 'Bookings',
+    noBookings: 'No bookings found.',
+    guestUser: 'Guest User',
+    noContactInfo: 'No contact info',
+    total: 'Total',
+    reject: 'Reject',
+    accept: 'Accept',
+    markCompleted: 'Mark Completed',
+    
+    // Statuses
+    statusActive: 'Active',
+    statusConfirmed: 'Confirmed',
+    statusCompleted: 'Completed',
+    statusCancelled: 'Cancelled',
+    statusRejected: 'Rejected',
+    statusPending: 'Pending',
+
+    // Shop Admin - Settings
+    shopSettings: 'Shop Settings',
+    manageSettings: 'Manage your shop profile, location, and policies.',
+    basicInfo: 'Basic Info',
+    shopName: 'Shop Name',
+    description: 'Description',
+    location: 'Location',
+    address: 'Address',
+    city: 'City',
+    latitude: 'Latitude',
+    longitude: 'Longitude',
+    locationTip: 'Tip: Find coordinates on Google Maps by right-clicking your location.',
+    defaultDepositAmount: 'Default Deposit Amount (THB)',
+    depositPolicyText: 'Deposit Policy Text',
+    depositPolicyHint: 'This will be shown to renters on your shop and scooter pages.',
+    saveChanges: 'Save Changes',
+    seedScriptHint: 'Please run the database seed script to create a demo shop.',
+
+    // Add/Edit Scooter
+    addNewScooter: 'Add New Scooter',
+    editScooter: 'Edit Scooter',
+    expandFleet: 'Expand your fleet.',
+    updateDetails: 'Update details and availability.',
+    brand: 'Brand',
+    modelName: 'Model Name',
+    engineSize: 'Engine (cc)',
+    dailyPrice: 'Daily Price (฿)',
+    depositAmount: 'Deposit (฿)',
+    addToFleet: 'Add to Fleet',
+    availableForRent: 'Available for Rent (Active)',
+    unauthorized: 'Unauthorized',
+    noPermissionEdit: 'You do not have permission to edit this scooter.',
+    returnToInventory: 'Return to Inventory',
+    exampleModel: 'e.g. Click 160, NMAX',
   },
   th: {
     // Shops list page
@@ -74,6 +154,85 @@ export const translations = {
 
     // Common
     chiangMaiThailand: 'เชียงใหม่, ประเทศไทย',
+
+    // Shop Admin Dashboard
+    partnerDashboard: 'แดชบอร์ดพาร์ทเนอร์',
+    welcomeBack: 'ยินดีต้อนรับกลับ',
+    settings: 'การตั้งค่า',
+    addBike: 'เพิ่มรถ',
+    demoModeActive: 'โหมดสาธิตใช้งานอยู่',
+    demoModeMessage: 'เราหากร้านของคุณไม่พบ จึงแสดงข้อมูลสาธิตแทน',
+    fleet: 'รถทั้งหมด',
+    activeBookings: 'การจองที่ใช้งานอยู่',
+    pendingRequests: 'คำขอที่รออนุมัติ',
+    recentActivity: 'กิจกรรมล่าสุด',
+    viewAll: 'ดูทั้งหมด',
+    noRecentBookings: 'ไม่มีการจองล่าสุด',
+    days: 'วัน',
+    guest: 'ลูกค้าทั่วไป',
+
+    // Shop Admin - Inventory
+    fleetInventory: 'รถทั้งหมดในระบบ',
+    manageInventory: 'จัดการรถและราคาของคุณ',
+    availabilityLink: 'ตารางว่าง',
+    addScooter: 'เพิ่มรถ',
+    noScooters: 'ยังไม่มีรถในระบบ',
+    shopNotFound: 'ไม่พบร้านค้า',
+    contactSupport: 'กรุณาเข้าสู่ระบบหรือติดต่อฝ่ายสนับสนุน',
+    deposit: 'มัดจำ',
+
+    // Shop Admin - Bookings
+    bookings: 'การจอง',
+    noBookings: 'ไม่พบการจอง',
+    guestUser: 'ผู้ใช้งานทั่วไป',
+    noContactInfo: 'ไม่มีข้อมูลติดต่อ',
+    total: 'ยอดรวม',
+    reject: 'ปฏิเสธ',
+    accept: 'ยอมรับ',
+    markCompleted: 'ทำเครื่องหมายว่าเสร็จสิ้น',
+
+    // Statuses
+    statusActive: 'ใช้งานอยู่',
+    statusConfirmed: 'ยืนยันแล้ว',
+    statusCompleted: 'เสร็จสิ้น',
+    statusCancelled: 'ยกเลิกแล้ว',
+    statusRejected: 'ปฏิเสธแล้ว',
+    statusPending: 'รออนุมัติ',
+
+    // Shop Admin - Settings
+    shopSettings: 'ตั้งค่าร้านค้า',
+    manageSettings: 'จัดการข้อมูลร้านค้า ที่ตั้ง และนโยบาย',
+    basicInfo: 'ข้อมูลพื้นฐาน',
+    shopName: 'ชื่อร้าน',
+    description: 'รายละเอียด',
+    location: 'ที่ตั้ง',
+    address: 'ที่อยู่',
+    city: 'เมือง',
+    latitude: 'ละติจูด',
+    longitude: 'ลองจิจูด',
+    locationTip: 'เคล็ดลับ: หาพิกัดบน Google Maps โดยคลิกขวาที่จุดที่ต้องการ',
+    defaultDepositAmount: 'จำนวนเงินมัดจำเริ่มต้น (บาท)',
+    depositPolicyText: 'ข้อความนโยบายมัดจำ',
+    depositPolicyHint: 'ข้อความนี้จะแสดงให้ลูกค้าเห็นในหน้าร้านและหน้ารถ',
+    saveChanges: 'บันทึกการเปลี่ยนแปลง',
+    seedScriptHint: 'กรุณารันสคริปต์ seed เพื่อสร้างร้านค้าตัวอย่าง',
+
+    // Add/Edit Scooter
+    addNewScooter: 'เพิ่มรถใหม่',
+    editScooter: 'แก้ไขข้อมูลรถ',
+    expandFleet: 'เพิ่มรถในระบบของคุณ',
+    updateDetails: 'อัพเดทรายละเอียดและสถานะความพร้อม',
+    brand: 'ยี่ห้อ',
+    modelName: 'รุ่น',
+    engineSize: 'ขนาดเครื่องยนต์ (ซีซี)',
+    dailyPrice: 'ราคาเช่ารายวัน (บาท)',
+    depositAmount: 'เงินมัดจำ (บาท)',
+    addToFleet: 'เพิ่มในรายการรถ',
+    availableForRent: 'เปิดให้เช่า (ใช้งาน)',
+    unauthorized: 'ไม่ได้รับอนุญาต',
+    noPermissionEdit: 'คุณไม่มีสิทธิ์แก้ไขข้อมูลรถคันนี้',
+    returnToInventory: 'กลับหน้ารายการรถ',
+    exampleModel: 'เช่น Click 160, NMAX',
   },
 } as const
 
