@@ -10,6 +10,13 @@ export async function getShop(id: string) {
   return data
 }
 
+/**
+ * Fetches all scooters for a shop with their availability data.
+ * Optimized to eliminate N+1 query pattern by fetching all related data in parallel.
+ * 
+ * @param shopId - The shop ID to fetch scooters for
+ * @returns Array of scooters with availability, bookings, and blocked dates
+ */
 export async function getScooters(shopId: string) {
   const supabase = createClient()
   const { data: scooters } = await (await supabase)
@@ -22,25 +29,55 @@ export async function getScooters(shopId: string) {
 
   const scooterIds = scooters.map(s => s.id)
 
-  const { data: bookings } = await (await supabase)
-    .from('bookings')
-    .select('scooter_id, start_date, end_date, status')
-    .in('scooter_id', scooterIds)
-    .neq('status', 'cancelled')
+  // Fetch all related data in parallel
+  const [bookingsResult, blockedResult, availabilityResult] = await Promise.all([
+    (await supabase)
+      .from('bookings')
+      .select('scooter_id, start_date, end_date, status')
+      .in('scooter_id', scooterIds)
+      .neq('status', 'cancelled'),
+    (await supabase)
+      .from('availability_days')
+      .select('scooter_id, day')
+      .in('scooter_id', scooterIds)
+      .eq('is_available', false),
+    (await supabase)
+      .from('availability_days')
+      .select('*')
+      .in('scooter_id', scooterIds)
+  ])
 
-  const { data: blocked } = await (await supabase)
-    .from('availability_days')
-    .select('scooter_id, day')
-    .in('scooter_id', scooterIds)
-    .eq('is_available', false)
+  const bookings = bookingsResult.data
+  const blocked = blockedResult.data
+  const availability = availabilityResult.data
+
+  // Build Maps for O(1) lookups instead of O(n) filter operations (js-index-maps)
+  const bookingsMap = new Map<string, Array<{ start: Date; end: Date }>>()
+  bookings?.forEach(b => {
+    if (!bookingsMap.has(b.scooter_id)) bookingsMap.set(b.scooter_id, [])
+    bookingsMap.get(b.scooter_id)!.push({
+      start: new Date(b.start_date),
+      end: new Date(b.end_date)
+    })
+  })
+
+  const blockedMap = new Map<string, Date[]>()
+  blocked?.forEach(b => {
+    if (!blockedMap.has(b.scooter_id)) blockedMap.set(b.scooter_id, [])
+    blockedMap.get(b.scooter_id)!.push(new Date(b.day))
+  })
+
+  const availabilityMap = new Map<string, any[]>()
+  availability?.forEach(a => {
+    if (!availabilityMap.has(a.scooter_id)) availabilityMap.set(a.scooter_id, [])
+    availabilityMap.get(a.scooter_id)!.push(a)
+  })
 
   return scooters.map(scooter => ({
     ...scooter,
-    bookings: bookings?.filter(b => b.scooter_id === scooter.id).map(b => ({
-      start: new Date(b.start_date),
-      end: new Date(b.end_date)
-    })) || [],
-    unavailableDates: blocked?.filter(b => b.scooter_id === scooter.id).map(b => new Date(b.day)) || []
+    bookings: bookingsMap.get(scooter.id) || [],
+    unavailableDates: blockedMap.get(scooter.id) || [],
+    availability: availabilityMap.get(scooter.id) || []
   }))
 }
 

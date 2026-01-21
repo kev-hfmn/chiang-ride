@@ -11,7 +11,7 @@ export function LanguageToggle() {
       <Globe className="w-4 h-4 text-gray-500" />
       <button
         onClick={() => setLanguage('en')}
-        className={`px-3 py-1 text-sm font-semibold rounded-full transition-all ${
+        className={`px-4 py-1 text-sm font-semibold rounded-full transition-all ${
           language === 'en'
             ? 'bg-green-600 text-white'
             : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
@@ -21,7 +21,7 @@ export function LanguageToggle() {
       </button>
       <button
         onClick={() => setLanguage('th')}
-        className={`px-3 py-1 text-sm font-semibold rounded-full transition-all ${
+        className={`px-4 py-1 text-sm font-semibold rounded-full transition-all ${
           language === 'th'
             ? 'bg-green-600 text-white'
             : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'

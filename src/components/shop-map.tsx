@@ -117,7 +117,7 @@ export default function ShopMap({ shops }: ShopMapProps) {
                   {shop.address || shop.city}
                 </p>
                 <Link
-                  href={`/app/shops/${shop.id}`}
+                  href={`/shops/${shop.id}`}
                   className="block text-center bg-green-600 text-white text-xs font-bold py-2 px-3 rounded-lg hover:bg-green-700 transition-colors"
                 >
                   View Shop

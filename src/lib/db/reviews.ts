@@ -1,5 +1,6 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import { Review } from "@/lib/types/custom";
+import { logger } from '@/lib/utils/logger';
 
 export async function getShopReviews(shopId: string): Promise<Review[]> {
   const supabase = createAdminClient();
@@ -11,7 +12,7 @@ export async function getShopReviews(shopId: string): Promise<Review[]> {
     .order("created_at", { ascending: false });
 
   if (error) {
-    console.error("Error fetching reviews:", error);
+    logger.error('Failed to fetch reviews', error, { shopId });
     return [];
   }
 

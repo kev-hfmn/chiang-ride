@@ -23,7 +23,7 @@ export default function Home() {
           </Link>
           <Link 
             className="inline-flex h-9 items-center justify-center rounded-full bg-green-600 px-4 text-sm font-medium text-white shadow-sm transition-all hover:bg-green-700 hover:shadow-md"
-            href="/app"
+            href="/shops"
           >
             Open App
           </Link>
@@ -62,14 +62,14 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row gap-4 w-full justify-center pt-4">
                 <Link
                   className="group inline-flex h-14 items-center justify-center rounded-xl bg-orange-500 px-8 text-lg font-bold text-white shadow-lg shadow-orange-500/30 transition-all hover:scale-105 hover:bg-orange-400 hover:shadow-xl hover:shadow-orange-500/40"
-                  href="/app"
+                  href="/shops"
                 >
                   Find a Bike
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Link>
                 <Link
                   className="inline-flex h-14 items-center justify-center rounded-xl border-2 border-white/30 bg-white/10 backdrop-blur-sm px-8 text-lg font-semibold text-white transition-all hover:bg-white/20 hover:border-white/40"
-                  href="/app/shop-admin"
+                  href="/admin"
                 >
                   I'm a Shop Owner
                 </Link>
@@ -177,7 +177,7 @@ export default function Home() {
                   </li>
                 </ul>
                 <Link 
-                  href="/app" 
+                  href="/shops" 
                   className="inline-flex items-center gap-2 text-green-700 font-semibold hover:text-green-800 transition-colors"
                 >
                   Browse available bikes <ArrowRight className="h-4 w-4" />
@@ -194,7 +194,7 @@ export default function Home() {
                       <div className="w-3 h-3 rounded-full bg-green-400"></div>
                     </div>
                     <div className="flex-1 bg-white rounded-md px-3 py-1 text-sm text-gray-500 text-center">
-                      chiangride.com/app
+                      chiangride.com/shops
                     </div>
                   </div>
                   <div className="p-4 grid grid-cols-2 gap-3">
@@ -397,7 +397,7 @@ export default function Home() {
                 </ul>
                 <Link
                   className="inline-flex h-12 items-center justify-center rounded-xl bg-white px-8 text-base font-bold text-green-700 shadow-lg transition-all hover:scale-105 hover:shadow-xl"
-                  href="/app/shop-admin"
+                  href="/admin"
                 >
                   Register Your Shop
                 </Link>
@@ -496,7 +496,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 className="group inline-flex h-14 items-center justify-center rounded-xl bg-green-500 px-8 text-lg font-bold text-white shadow-lg shadow-green-500/30 transition-all hover:scale-105 hover:bg-green-400"
-                href="/app"
+                href="/shops"
               >
                 Browse Available Bikes
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />

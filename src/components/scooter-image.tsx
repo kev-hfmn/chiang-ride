@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import OptimizedImage from '@/components/ui/OptimizedImage'
 import { getScooterImage } from '@/lib/scooter-images'
 
 interface ScooterImageProps {
@@ -9,9 +10,12 @@ interface ScooterImageProps {
   scooterId?: string
   imageUrl?: string
   className?: string
+  fill?: boolean
+  width?: number
+  height?: number
 }
 
-export function ScooterImage({ brand, model, scooterId, imageUrl, className }: ScooterImageProps) {
+export function ScooterImage({ brand, model, scooterId, imageUrl, className, fill = false, width, height }: ScooterImageProps) {
   const [error, setError] = useState(false)
 
   // Try local image first, then custom URL, then generated fallback
@@ -24,10 +28,15 @@ export function ScooterImage({ brand, model, scooterId, imageUrl, className }: S
     : (imageUrl || localPath)
 
   return (
-    <img
+    <OptimizedImage
       src={src}
       alt={`${brand || ''} ${model}`.trim()}
       className={className}
+      fill={fill}
+      width={fill ? undefined : (width || 96)}
+      height={fill ? undefined : (height || 96)}
+      sizes={fill ? "(max-width: 768px) 100vw, 400px" : undefined}
+      priority={false}
       onError={() => setError(true)}
     />
   )

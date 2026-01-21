@@ -4,12 +4,20 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { getAdminShop } from '@/lib/db/admin'
+import { logger } from '@/lib/utils/logger'
 
+/**
+ * Adds a new scooter to the shop's inventory.
+ * Verifies shop ownership before creating the scooter.
+ * 
+ * @param formData - Form data containing scooter details (model, brand, engine_cc, daily_price, deposit_amount)
+ * @throws Error if shop not found
+ */
 export async function addScooterAction(formData: FormData) {
   // 1. Identify the Shop (this handles auth or demo fallback)
   const shop = await getAdminShop()
   if (!shop) {
-    console.error('Shop not found. Make sure to run the seed script to create the demo shop.')
+    logger.error('Shop not found during scooter creation', undefined, { action: 'addScooter' })
     throw new Error('Shop not found. Please run the database seed script first.')
   }
 
@@ -36,16 +44,24 @@ export async function addScooterAction(formData: FormData) {
     })
 
   if (error) {
-    console.error('Create Scooter Error:', error)
+    logger.error('Failed to create scooter', error, { shopId: shop.id, model, brand })
     throw new Error(`Failed to add scooter: ${error.message}`)
   }
 
   // 4. Revalidate & Redirect
-  revalidatePath('/app/shop-admin/inventory')
-  revalidatePath('/app')
-  redirect('/app/shop-admin/inventory')
+  revalidatePath('/admin/inventory')
+  revalidatePath('/')
+  redirect('/admin/inventory')
 }
 
+/**
+ * Updates an existing scooter's details.
+ * Verifies shop ownership and ensures scooter belongs to the shop.
+ * 
+ * @param id - The scooter ID to update
+ * @param formData - Form data containing updated scooter details
+ * @throws Error if shop not found or scooter not owned by shop
+ */
 export async function updateScooterAction(id: string, formData: FormData) {
   const shop = await getAdminShop()
   if (!shop) throw new Error('Shop not found')
@@ -74,11 +90,11 @@ export async function updateScooterAction(id: string, formData: FormData) {
     .eq('shop_id', shop.id)
 
   if (error) {
-    console.error('Update Scooter Error:', error)
+    logger.error('Failed to update scooter', error, { scooterId: id, shopId: shop.id })
     throw new Error(`Failed to update scooter: ${error.message}`)
   }
 
-  revalidatePath('/app/shop-admin/inventory')
-  revalidatePath('/app')
-  redirect('/app/shop-admin/inventory')
+  revalidatePath('/admin/inventory')
+  revalidatePath('/')
+  redirect('/admin/inventory')
 }

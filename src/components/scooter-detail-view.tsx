@@ -27,6 +27,7 @@ interface Scooter {
   weekly_price?: number
   monthly_price?: number
   deposit_amount: number
+  is_active: boolean
   image_url?: string
   shops?: Shop
 }
@@ -53,7 +54,7 @@ export function ScooterDetailView({ scooter, availability }: ScooterDetailViewPr
       <div>
         <div className="flex items-center justify-between mb-4">
           <Link
-            href="/app"
+            href="/dashboard"
             className="text-gray-500 hover:text-gray-900 text-sm font-bold flex items-center gap-1"
           >
             <ArrowLeft className="w-4 h-4" />
@@ -139,7 +140,7 @@ export function ScooterDetailView({ scooter, availability }: ScooterDetailViewPr
 
       {/* Shop Info */}
       {shop && (
-        <Link href={`/app/shops/${shop.id}`} className="block">
+        <Link href={`/shops/${shop.id}`} className="block">
           <div className="bg-white rounded-3xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">

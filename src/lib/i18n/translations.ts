@@ -76,6 +76,7 @@ export const translations = {
     reject: "Reject",
     accept: "Accept",
     markCompleted: "Mark Completed",
+    startRental: "Start Rental",
 
     // Statuses
     statusActive: "Active",
@@ -127,6 +128,37 @@ export const translations = {
     loading: "Loading...",
     findingYourRide: "Finding your next ride",
     openingShopDashboard: "Opening shop dashboard",
+
+    // Shop Admin - Calendar
+    calendarAvailability: "Availability",
+    calendarSubtitle: "Next 2 weeks at a glance.",
+    calendarAvailable: "Available",
+    calendarBooked: "Booked",
+    calendarScooter: "Scooter",
+
+    // Navigation
+    navHome: "Home",
+    navExplore: "Explore",
+    navRides: "Rides",
+    navProfile: "Profile",
+    navDashboard: "Dashboard",
+    navFleet: "Fleet",
+    navCalendar: "Calendar",
+    navBookings: "Bookings",
+    navAdmin: "Admin",
+    navRenter: "Renter",
+    navShop: "Shop",
+    navShopManagement: "Shop Management",
+    navRenterMenu: "Renter Menu",
+    navHomeDashboard: "Home Dashboard",
+    navFindShop: "Find a Shop",
+    navMyBookings: "My Bookings",
+    navAccountProfile: "Account Profile",
+    navShopOverview: "Shop Overview",
+    navManageInventory: "Manage Inventory",
+    navShopCalendar: "Shop Calendar",
+    navActiveOrders: "Active Orders",
+    navGlobalSettings: "Global Settings",
   },
   th: {
     // Shops list page
@@ -202,6 +234,7 @@ export const translations = {
     reject: "ปฏิเสธ",
     accept: "ยอมรับ",
     markCompleted: "ทำเครื่องหมายว่าเสร็จสิ้น",
+    startRental: "เริ่มการเช่า",
 
     // Statuses
     statusActive: "ใช้งานอยู่",
@@ -250,6 +283,37 @@ export const translations = {
     loading: "กำลังโหลด...",
     findingYourRide: "กำลังค้นหารถให้คุณ",
     openingShopDashboard: "กำลังเปิดแดชบอร์ดร้านค้า",
+
+    // Shop Admin - Calendar
+    calendarAvailability: "ตารางว่าง",
+    calendarSubtitle: "ภาพรวม 2 สัปดาห์ข้างหน้า",
+    calendarAvailable: "ว่าง",
+    calendarBooked: "ถูกจองแล้ว",
+    calendarScooter: "รถ",
+
+    // Navigation
+    navHome: "หน้าแรก",
+    navExplore: "สำรวจ",
+    navRides: "การเช่า",
+    navProfile: "โปรไฟล์",
+    navDashboard: "แดชบอร์ด",
+    navFleet: "รถ",
+    navCalendar: "ปฏิทิน",
+    navBookings: "การจอง",
+    navAdmin: "จัดการ",
+    navRenter: "ผู้เช่า",
+    navShop: "ร้านค้า",
+    navShopManagement: "จัดการร้านค้า",
+    navRenterMenu: "เมนูผู้เช่า",
+    navHomeDashboard: "หน้าแรก",
+    navFindShop: "ค้นหาร้าน",
+    navMyBookings: "การจองของฉัน",
+    navAccountProfile: "บัญชีผู้ใช้",
+    navShopOverview: "ภาพรวมร้าน",
+    navManageInventory: "จัดการรถ",
+    navShopCalendar: "ปฏิทินร้าน",
+    navActiveOrders: "ออเดอร์ที่ใช้งาน",
+    navGlobalSettings: "ตั้งค่าทั่วไป",
   },
 } as const;
 

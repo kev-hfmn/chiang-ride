@@ -36,7 +36,7 @@ export function ShopsListView({ shops }: ShopsListViewProps) {
         {shops?.map((shop) => (
           <Link
             key={shop.id}
-            href={`/app/shops/${shop.id}`}
+            href={`/shops/${shop.id}`}
             className="block group bg-white border-none rounded-2xl shadow-sm hover:shadow-lg transition-all overflow-hidden ring-1 ring-gray-100"
           >
             <div className="h-48 bg-gradient-to-br from-green-50 to-green-100 flex items-center justify-center text-green-300 group-hover:from-green-100 group-hover:to-green-200 transition-colors relative">

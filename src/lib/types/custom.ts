@@ -63,3 +63,24 @@ export interface Review {
   comment?: string;
   created_at: string;
 }
+
+export interface AvailabilityDay {
+  id?: string;
+  scooter_id: string;
+  day: string; // ISO date string (YYYY-MM-DD)
+  is_available: boolean;
+  note?: string;
+}
+
+export interface ScooterWithShop extends Scooter {
+  shops?: Shop;
+}
+
+export interface ScooterWithAvailability extends Scooter {
+  availability?: AvailabilityDay[];
+  bookings?: Booking[];
+  blockedDates?: AvailabilityDay[];
+}
+
+// Icon component type for navigation items
+export type IconComponent = React.ComponentType<{ className?: string }>

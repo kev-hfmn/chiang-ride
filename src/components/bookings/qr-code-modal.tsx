@@ -61,7 +61,7 @@ export function QRCodeModal({ isOpen, onClose, bookingId, vehicleModel }: QRCode
   // In production, this would be https://chiang-ride.com/rental/start/${bookingId}
   // For dev, we assume localhost or the current origin.
   const origin = typeof window !== 'undefined' ? window.location.origin : ''
-  const startUrl = `${origin}/app/rental/start/${bookingId}`
+  const startUrl = `${origin}/rental/start/${bookingId}`
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(startUrl)
@@ -97,6 +97,7 @@ export function QRCodeModal({ isOpen, onClose, bookingId, vehicleModel }: QRCode
                 </div>
                 <button 
                     onClick={onClose}
+                    aria-label="Close modal"
                     className="p-2 hover:bg-gray-100 rounded-full transition-colors text-gray-400 hover:text-gray-600"
                 >
                   <X className="w-5 h-5" />
@@ -133,6 +134,7 @@ export function QRCodeModal({ isOpen, onClose, bookingId, vehicleModel }: QRCode
                                     </div>
                                     <button 
                                         onClick={copyToClipboard}
+                                        aria-label="Copy link to clipboard"
                                         className="p-2 hover:bg-white hover:shadow-sm rounded-xl transition-all text-gray-400 hover:text-blue-600"
                                         title="Copy link"
                                     >

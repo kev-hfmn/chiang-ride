@@ -66,12 +66,14 @@ export default function AvailabilityCalendar({ unavailableDates = [], bookings =
           <button 
             onClick={prevMonth} 
             disabled={isBefore(subMonths(currentMonth, 1), startOfMonth(new Date()))} // Prevent going back past today (approx)
+            aria-label="Previous month"
             className="p-1 hover:bg-gray-100 rounded-full disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
           >
             <ChevronLeft className="w-5 h-5 text-gray-600" />
           </button>
           <button 
             onClick={nextMonth}
+            aria-label="Next month"
             className="p-1 hover:bg-gray-100 rounded-full transition-colors"
           >
             <ChevronRight className="w-5 h-5 text-gray-600" />

@@ -40,7 +40,7 @@ export function ShopDetailView({ shop, scooters }: ShopDetailViewProps) {
       <div>
         <div className="flex items-center justify-between mb-4">
           <Link
-            href="/app/shops"
+            href="/shops"
             className="text-gray-500 hover:text-gray-900 text-sm font-bold flex items-center gap-1"
           >
             <ArrowLeft className="w-4 h-4" />
@@ -86,7 +86,7 @@ export function ShopDetailView({ shop, scooters }: ShopDetailViewProps) {
               key={scooter.id}
               className="bg-white rounded-3xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-all group"
             >
-              <Link href={`/app/scooters/${scooter.id}`}>
+              <Link href={`/scooters/${scooter.id}`}>
                 {/* Scooter Card Content */}
                 <div className="p-4 flex gap-4">
                   {/* Image Placeholder */}

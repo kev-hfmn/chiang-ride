@@ -38,8 +38,17 @@ export async function middleware(request: NextRequest) {
   } = await supabase.auth.getUser()
 
   // Protected routes - DISABLED for MVP Demo (No Login requested)
+  // Routes now use route groups: (renter) for /shops, /bookings, etc. and (admin) for /admin/*
   /*
-  if (request.nextUrl.pathname.startsWith('/app') && !user) {
+  const isProtectedRoute = 
+    request.nextUrl.pathname.startsWith('/shops') ||
+    request.nextUrl.pathname.startsWith('/bookings') ||
+    request.nextUrl.pathname.startsWith('/scooters') ||
+    request.nextUrl.pathname.startsWith('/rental') ||
+    request.nextUrl.pathname.startsWith('/profile') ||
+    request.nextUrl.pathname.startsWith('/admin')
+  
+  if (isProtectedRoute && !user) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
   */
@@ -47,7 +56,7 @@ export async function middleware(request: NextRequest) {
   // Auth routes (redirect if already logged in) - DISABLED for MVP Demo
   /*
   if (request.nextUrl.pathname.startsWith('/login') && user) {
-    return NextResponse.redirect(new URL('/app', request.url))
+    return NextResponse.redirect(new URL('/', request.url))
   }
   */
 

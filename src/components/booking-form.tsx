@@ -4,9 +4,10 @@ import { useState, useActionState } from "react";
 import { createBookingRequestAction } from "@/app/actions/renter";
 import { Calendar as CalendarIcon, Loader2 } from "lucide-react";
 import { format, differenceInDays, addDays } from "date-fns";
+import { Scooter } from "@/lib/types/custom";
 
 interface BookingFormProps {
-  scooter: any;
+  scooter: Scooter;
   shopId: string;
 }
 
@@ -41,8 +42,6 @@ export default function BookingForm({ scooter, shopId }: BookingFormProps) {
   };
 
   const totals = calculateTotal();
-
-  console.log(totals, isPending);
 
   return (
     <form

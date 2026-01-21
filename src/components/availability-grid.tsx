@@ -4,10 +4,11 @@ import { useState } from 'react'
 import { format, addDays, startOfDay, isSameDay } from 'date-fns'
 import { createClient } from '@/lib/supabase/client'
 import { Loader2 } from 'lucide-react'
+import { AvailabilityDay } from '@/lib/types/custom'
 
 type AvailabilityGridProps = {
   scooterId: string
-  initialAvailability: any[]
+  initialAvailability: AvailabilityDay[]
   isOwner?: boolean
 }
 
@@ -35,7 +36,7 @@ export function AvailabilityGrid({ scooterId, initialAvailability, isOwner = fal
     if (!error) {
       setAvailability(prev => {
         const other = prev.filter(a => a.day !== dateStr)
-        return [...other, { day: dateStr, is_available: !currentStatus }]
+        return [...other, { scooter_id: scooterId, day: dateStr, is_available: !currentStatus }]
       })
     }
     setUpdating(null)
@@ -55,6 +56,7 @@ export function AvailabilityGrid({ scooterId, initialAvailability, isOwner = fal
             key={dateStr}
             disabled={!isOwner || !!isUpdating}
             onClick={() => toggleAvailability(date, isAvailable)}
+            aria-label={`${isAvailable ? 'Mark unavailable' : 'Mark available'} for ${format(date, 'MMM d')}`}
             className={`
               relative flex flex-col items-center justify-center w-10 h-10 rounded-full transition-all duration-200
               ${isAvailable 

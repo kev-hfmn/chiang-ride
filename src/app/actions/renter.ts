@@ -4,19 +4,55 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-export async function createBookingRequestAction(prevState: any, formData: FormData) {
+interface BookingActionState {
+  error?: string;
+}
+
+/**
+ * Creates a new booking request for a scooter rental.
+ * @param prevState - Previous action state (unused but required by useActionState)
+ * @param formData - Form data containing booking details
+ * @returns Error state if validation fails, otherwise redirects to bookings page
+ */
+export async function createBookingRequestAction(
+  prevState: BookingActionState,
+  formData: FormData
+): Promise<BookingActionState> {
   const supabase = createAdminClient();
 
-  const scooterId = formData.get("scooter_id") as string;
-  const shopId = formData.get("shop_id") as string;
-  const startDate = formData.get("start_date") as string;
-  const endDate = formData.get("end_date") as string;
-  const totalPrice = parseInt(formData.get("total_price") as string);
-  const totalDays = parseInt(formData.get("total_days") as string);
-  const bookingFee = parseInt(formData.get("booking_fee") as string) || 0;
+  // Extract and validate form data
+  const scooterId = formData.get("scooter_id");
+  const shopId = formData.get("shop_id");
+  const startDate = formData.get("start_date");
+  const endDate = formData.get("end_date");
+  const totalPriceStr = formData.get("total_price");
+  const totalDaysStr = formData.get("total_days");
+  const bookingFeeStr = formData.get("booking_fee");
 
-  if (!scooterId || !startDate || !endDate) {
-    return { error: "Missing required fields" };
+  // Validate required fields
+  if (!scooterId || typeof scooterId !== "string") {
+    return { error: "Invalid scooter ID" };
+  }
+  if (!shopId || typeof shopId !== "string") {
+    return { error: "Invalid shop ID" };
+  }
+  if (!startDate || typeof startDate !== "string") {
+    return { error: "Start date is required" };
+  }
+  if (!endDate || typeof endDate !== "string") {
+    return { error: "End date is required" };
+  }
+
+  // Parse and validate numeric fields
+  const totalPrice = parseInt(totalPriceStr as string, 10);
+  const totalDays = parseInt(totalDaysStr as string, 10);
+  const bookingFee = parseInt(bookingFeeStr as string, 10) || 0;
+
+  if (isNaN(totalPrice) || totalPrice <= 0) {
+    return { error: "Invalid total price" };
+  }
+  if (isNaN(totalDays) || totalDays <= 0) {
+    return { error: "Invalid rental duration" };
   }
 
   try {
@@ -35,11 +71,11 @@ export async function createBookingRequestAction(prevState: any, formData: FormD
 
     if (error) throw error;
 
-    revalidatePath("/app/bookings");
+    revalidatePath("/bookings");
   } catch (error) {
-    console.error("Error creating booking:", error);
-    return { error: "Failed to create booking" };
+    const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
+    return { error: `Failed to create booking: ${errorMessage}` };
   }
 
-  redirect("/app/bookings");
+  redirect("/bookings");
 }
