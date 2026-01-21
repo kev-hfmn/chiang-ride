@@ -1,6 +1,9 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
 import { CheckCircle, Shield, MapPin, Search, Camera, Star, Calendar, FileText, Users, MessageCircle, Bike, Clock, CreditCard, ArrowRight } from 'lucide-react'
+import { AnimateOnScroll } from '@/components/animate-on-scroll'
 
 export default function Home() {
   return (
@@ -34,29 +37,35 @@ export default function Home() {
         {/* Hero Section */}
         <section className="w-full py-20 md:py-32 lg:py-40 bg-gradient-to-br from-green-600 via-green-700 to-green-800 text-white relative overflow-hidden">
           {/* Decorative elements */}
-          <div className="absolute top-20 left-10 w-72 h-72 bg-yellow-400/20 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-10 right-10 w-96 h-96 bg-green-400/20 rounded-full blur-3xl"></div>
+          <div className="absolute top-20 left-10 w-72 h-72 bg-yellow-400/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-10 right-10 w-96 h-96 bg-green-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-white/5 rounded-full blur-3xl"></div>
           
           <div className="container px-4 md:px-6 mx-auto relative z-10">
             <div className="flex flex-col items-center space-y-8 text-center">
-              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-sm font-medium">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-300"></span>
-                </span>
-                Now live in Chiang Mai
-              </div>
+              <AnimateOnScroll animation="fade" delay={0}>
+                <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 text-sm font-medium">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-300"></span>
+                  </span>
+                  Now live in Chiang Mai
+                </div>
+              </AnimateOnScroll>
               
               <div className="space-y-6 max-w-4xl">
-                <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-                  Rent a Scooter in Chiang Mai
-                  <span className="block text-yellow-400 mt-2">Without the Gamble.</span>
-                </h1>
-                <p className="mx-auto max-w-[700px] text-green-50/90 text-lg md:text-xl font-medium leading-relaxed">
-                  Browse real-time availability, book from verified shops, and keep your passport safe. 
-                  The smart way to explore Northern Thailand.
-                </p>
+                <AnimateOnScroll animation="fade-up" delay={100}>
+                  <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+                    Rent a Scooter in Chiang Mai
+                    <span className="block text-yellow-400 mt-2">Without the Gamble.</span>
+                  </h1>
+                </AnimateOnScroll>
+                <AnimateOnScroll animation="fade-up" delay={200}>
+                  <p className="mx-auto max-w-[700px] text-green-50/90 text-lg md:text-xl font-medium leading-relaxed">
+                    Browse real-time availability, book from verified shops, and keep your passport safe. 
+                    The smart way to explore Northern Thailand.
+                  </p>
+                </AnimateOnScroll>
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 w-full justify-center pt-4">
@@ -76,20 +85,22 @@ export default function Home() {
               </div>
 
               {/* Trust indicators */}
-              <div className="flex flex-wrap items-center justify-center gap-8 pt-8 text-sm text-green-100/80">
-                <div className="flex items-center gap-2">
-                  <Shield className="h-5 w-5" />
-                  <span>No passport deposits</span>
+              <AnimateOnScroll animation="fade-up" delay={400}>
+                <div className="flex flex-wrap items-center justify-center gap-8 pt-8 text-sm text-green-100/80">
+                  <div className="flex items-center gap-2">
+                    <Shield className="h-5 w-5" />
+                    <span>No passport deposits</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="h-5 w-5" />
+                    <span>Verified shops only</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Calendar className="h-5 w-5" />
+                    <span>Real-time availability</span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="h-5 w-5" />
-                  <span>Verified shops only</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Calendar className="h-5 w-5" />
-                  <span>Real-time availability</span>
-                </div>
-              </div>
+              </AnimateOnScroll>
             </div>
           </div>
         </section>
@@ -97,7 +108,7 @@ export default function Home() {
         {/* Problem/Solution Section */}
         <section id="features" className="w-full py-20 md:py-28 bg-white">
           <div className="container px-4 md:px-6 mx-auto">
-            <div className="text-center mb-16">
+            <AnimateOnScroll animation="fade-up" className="text-center mb-16">
               <div className="inline-flex items-center gap-2 bg-red-50 text-red-600 rounded-full px-4 py-1.5 text-sm font-medium mb-4">
                 ⚠️ The Problem
               </div>
@@ -107,38 +118,44 @@ export default function Home() {
               <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
                 Every traveler in Chiang Mai knows the struggle. We built the solution.
               </p>
-            </div>
+            </AnimateOnScroll>
             
             <div className="grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              <div className="group relative flex flex-col p-8 bg-gradient-to-br from-red-50 to-orange-50 rounded-2xl border border-red-100 transition-all hover:shadow-lg hover:-translate-y-1">
-                <div className="p-3 bg-white rounded-xl shadow-sm w-fit mb-4">
-                  <Shield className="h-7 w-7 text-red-500" />
+              <AnimateOnScroll animation="fade-up" delay={0}>
+                <div className="group relative flex flex-col p-8 bg-gradient-to-br from-red-50 to-orange-50 rounded-2xl border border-red-100 transition-all hover:shadow-lg hover:-translate-y-1 h-full">
+                  <div className="p-3 bg-white rounded-xl shadow-sm w-fit mb-4">
+                    <Shield className="h-7 w-7 text-red-500" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">No Passport Hostage</h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    Stop leaving your most important document with strangers. Our shops accept fair cash or card deposits only.
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">No Passport Hostage</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Stop leaving your most important document with strangers. Our shops accept fair cash or card deposits only.
-                </p>
-              </div>
+              </AnimateOnScroll>
               
-              <div className="group relative flex flex-col p-8 bg-gradient-to-br from-orange-50 to-yellow-50 rounded-2xl border border-orange-100 transition-all hover:shadow-lg hover:-translate-y-1">
-                <div className="p-3 bg-white rounded-xl shadow-sm w-fit mb-4">
-                  <Search className="h-7 w-7 text-orange-500" />
+              <AnimateOnScroll animation="fade-up" delay={100}>
+                <div className="group relative flex flex-col p-8 bg-gradient-to-br from-orange-50 to-yellow-50 rounded-2xl border border-orange-100 transition-all hover:shadow-lg hover:-translate-y-1 h-full">
+                  <div className="p-3 bg-white rounded-xl shadow-sm w-fit mb-4">
+                    <Search className="h-7 w-7 text-orange-500" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">Real-Time Availability</h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    See what's actually in stock for your dates. No more walking shop to shop hearing "maybe tomorrow".
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Real-Time Availability</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  See what's actually in stock for your dates. No more walking shop to shop hearing "maybe tomorrow".
-                </p>
-              </div>
+              </AnimateOnScroll>
               
-              <div className="group relative flex flex-col p-8 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border border-blue-100 transition-all hover:shadow-lg hover:-translate-y-1 sm:col-span-2 lg:col-span-1">
-                <div className="p-3 bg-white rounded-xl shadow-sm w-fit mb-4">
-                  <MapPin className="h-7 w-7 text-blue-500" />
+              <AnimateOnScroll animation="fade-up" delay={200}>
+                <div className="group relative flex flex-col p-8 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border border-blue-100 transition-all hover:shadow-lg hover:-translate-y-1 sm:col-span-2 lg:col-span-1 h-full">
+                  <div className="p-3 bg-white rounded-xl shadow-sm w-fit mb-4">
+                    <MapPin className="h-7 w-7 text-blue-500" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">Verified Shops Only</h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    We vet every listing. Check real reviews, bike condition, and clear policies before you book.
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Verified Shops Only</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  We vet every listing. Check real reviews, bike condition, and clear policies before you book.
-                </p>
-              </div>
+              </AnimateOnScroll>
             </div>
           </div>
         </section>
@@ -147,7 +164,7 @@ export default function Home() {
         <section className="w-full py-20 md:py-28 bg-gray-50">
           <div className="container px-4 md:px-6 mx-auto">
             <div className="grid gap-12 lg:grid-cols-2 items-center">
-              <div className="space-y-6">
+              <AnimateOnScroll animation="fade-right" className="space-y-6">
                 <div className="inline-flex items-center gap-2 bg-green-100 text-green-700 rounded-full px-4 py-1.5 text-sm font-medium">
                   🔥 Core Feature
                 </div>
@@ -155,7 +172,7 @@ export default function Home() {
                   Live Bike Catalog
                 </h2>
                 <p className="text-lg text-gray-600 leading-relaxed">
-                  An Airb*b-style grid of available scooters across all verified shops. Filter by bike type, price, 
+                  An Airbnb-style grid of available scooters across all verified shops. Filter by bike type, price, 
                   location, and availability dates. See exactly what you're getting before you book.
                 </p>
                 <ul className="space-y-3">
@@ -182,10 +199,10 @@ export default function Home() {
                 >
                   Browse available bikes <ArrowRight className="h-4 w-4" />
                 </Link>
-              </div>
+              </AnimateOnScroll>
               
               {/* Visual mockup */}
-              <div className="relative">
+              <AnimateOnScroll animation="fade-left" delay={200} className="relative">
                 <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
                   <div className="bg-gray-100 px-4 py-3 flex items-center gap-2 border-b">
                     <div className="flex gap-1.5">
@@ -204,7 +221,7 @@ export default function Home() {
                       { name: 'Honda PCX 160', price: '400', color: 'bg-purple-100' },
                       { name: 'Yamaha NMAX', price: '350', color: 'bg-orange-100' },
                     ].map((bike, i) => (
-                      <div key={i} className="bg-gray-50 rounded-xl p-3 border border-gray-100">
+                      <div key={i} className="bg-gray-50 rounded-xl p-3 border border-gray-100 transition-all hover:shadow-md hover:scale-[1.02]">
                         <div className={`${bike.color} rounded-lg h-20 mb-2 flex items-center justify-center`}>
                           <Bike className="h-10 w-10 text-gray-400" />
                         </div>
@@ -217,7 +234,7 @@ export default function Home() {
                 <div className="absolute -bottom-4 -right-4 bg-green-600 text-white rounded-xl px-4 py-2 shadow-lg text-sm font-medium">
                   ✓ Real-time updates
                 </div>
-              </div>
+              </AnimateOnScroll>
             </div>
           </div>
         </section>
@@ -225,17 +242,17 @@ export default function Home() {
         {/* How it Works */}
         <section id="how-it-works" className="w-full py-20 md:py-28 bg-white">
           <div className="container px-4 md:px-6 mx-auto">
-            <div className="text-center mb-16">
+            <AnimateOnScroll animation="fade-up" className="text-center mb-16">
               <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl md:text-5xl">
                 How It Works
               </h2>
               <p className="mt-4 text-lg text-gray-600">
                 From search to ride in under 5 minutes
               </p>
-            </div>
+            </AnimateOnScroll>
             
             <div className="grid gap-8 md:grid-cols-3 max-w-5xl mx-auto">
-              <div className="relative text-center">
+              <AnimateOnScroll animation="fade-up" delay={0} className="relative text-center">
                 <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-green-600 text-white text-2xl font-bold mx-auto mb-6 shadow-lg shadow-green-600/30">
                   1
                 </div>
@@ -244,9 +261,9 @@ export default function Home() {
                   Search available scooters by your dates. Compare prices, conditions, and shop reviews.
                 </p>
                 <div className="hidden md:block absolute top-8 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-green-300 to-green-100"></div>
-              </div>
+              </AnimateOnScroll>
               
-              <div className="relative text-center">
+              <AnimateOnScroll animation="fade-up" delay={150} className="relative text-center">
                 <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-green-600 text-white text-2xl font-bold mx-auto mb-6 shadow-lg shadow-green-600/30">
                   2
                 </div>
@@ -255,9 +272,9 @@ export default function Home() {
                   Reserve your bike with a small deposit. Get instant confirmation via Direct Message.
                 </p>
                 <div className="hidden md:block absolute top-8 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-green-300 to-green-100"></div>
-              </div>
+              </AnimateOnScroll>
               
-              <div className="text-center">
+              <AnimateOnScroll animation="fade-up" delay={300} className="text-center">
                 <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-green-600 text-white text-2xl font-bold mx-auto mb-6 shadow-lg shadow-green-600/30">
                   3
                 </div>
@@ -265,7 +282,7 @@ export default function Home() {
                 <p className="text-gray-600">
                   Show up at the shop, sign a clear digital contract, pay the balance, and ride!
                 </p>
-              </div>
+              </AnimateOnScroll>
             </div>
           </div>
         </section>
@@ -273,87 +290,36 @@ export default function Home() {
         {/* Features Grid */}
         <section className="w-full py-20 md:py-28 bg-gradient-to-b from-gray-50 to-white">
           <div className="container px-4 md:px-6 mx-auto">
-            <div className="text-center mb-16">
+            <AnimateOnScroll animation="fade-up" className="text-center mb-16">
               <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                 Built for Modern Travelers
               </h2>
               <p className="mt-4 text-lg text-gray-600">
                 Everything you need for a hassle-free rental experience
               </p>
-            </div>
+            </AnimateOnScroll>
             
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              <div className="flex gap-4 p-6 bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                <div className="p-2.5 bg-purple-100 rounded-lg h-fit">
-                  <Camera className="h-6 w-6 text-purple-600" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-gray-900 mb-1">Snap & Store Docs</h3>
-                  <p className="text-gray-600 text-sm">
-                    Digital record of your rental: photos of the bike, receipt, and contract stored in-app.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex gap-4 p-6 bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                <div className="p-2.5 bg-yellow-100 rounded-lg h-fit">
-                  <Star className="h-6 w-6 text-yellow-600" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-gray-900 mb-1">Review Bridge</h3>
-                  <p className="text-gray-600 text-sm">
-                    Post-rental prompts to leave Google reviews — helping great shops get discovered.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex gap-4 p-6 bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                <div className="p-2.5 bg-green-100 rounded-lg h-fit">
-                  <Clock className="h-6 w-6 text-green-600" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-gray-900 mb-1">Shop Info Profiles</h3>
-                  <p className="text-gray-600 text-sm">
-                    Opening hours, deposit policies, direct message links — all the info in one place.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex gap-4 p-6 bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                <div className="p-2.5 bg-blue-100 rounded-lg h-fit">
-                  <FileText className="h-6 w-6 text-blue-600" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-gray-900 mb-1">Digital Contracts</h3>
-                  <p className="text-gray-600 text-sm">
-                    Sign on your phone. No more messy paper agreements or unclear terms.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex gap-4 p-6 bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                <div className="p-2.5 bg-indigo-100 rounded-lg h-fit">
-                  <MessageCircle className="h-6 w-6 text-indigo-600" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-gray-900 mb-1">Direct Message</h3>
-                  <p className="text-gray-600 text-sm">
-                    Message shops directly. Get quick answers without language barriers.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex gap-4 p-6 bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                <div className="p-2.5 bg-pink-100 rounded-lg h-fit">
-                  <CreditCard className="h-6 w-6 text-pink-600" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-gray-900 mb-1">Fair Deposits</h3>
-                  <p className="text-gray-600 text-sm">
-                    Cash or card deposits only. Clear refund policies. No surprises.
-                  </p>
-                </div>
-              </div>
+              {[
+                { icon: Camera, color: 'purple', title: 'Snap & Store Docs', desc: 'Digital record of your rental: photos of the bike, receipt, and contract stored in-app.' },
+                { icon: Star, color: 'yellow', title: 'Review Bridge', desc: 'Post-rental prompts to leave Google reviews — helping great shops get discovered.' },
+                { icon: Clock, color: 'green', title: 'Shop Info Profiles', desc: 'Opening hours, deposit policies, direct message links — all the info in one place.' },
+                { icon: FileText, color: 'blue', title: 'Digital Contracts', desc: 'Sign on your phone. No more messy paper agreements or unclear terms.' },
+                { icon: MessageCircle, color: 'indigo', title: 'Direct Message', desc: 'Message shops directly. Get quick answers without language barriers.' },
+                { icon: CreditCard, color: 'pink', title: 'Fair Deposits', desc: 'Cash or card deposits only. Clear refund policies. No surprises.' },
+              ].map((feature, i) => (
+                <AnimateOnScroll key={i} animation="fade-up" delay={i * 100}>
+                  <div className="flex gap-4 p-6 bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all hover:-translate-y-1 h-full">
+                    <div className={`p-2.5 bg-${feature.color}-100 rounded-lg h-fit`}>
+                      <feature.icon className={`h-6 w-6 text-${feature.color}-600`} />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-gray-900 mb-1">{feature.title}</h3>
+                      <p className="text-gray-600 text-sm">{feature.desc}</p>
+                    </div>
+                  </div>
+                </AnimateOnScroll>
+              ))}
             </div>
           </div>
         </section>
@@ -364,7 +330,7 @@ export default function Home() {
           
           <div className="container px-4 md:px-6 mx-auto relative z-10">
             <div className="grid gap-12 lg:grid-cols-2 items-center">
-              <div className="space-y-6">
+              <AnimateOnScroll animation="fade-right" className="space-y-6">
                 <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 text-sm font-medium">
                   🏪 For Shop Owners
                 </div>
@@ -401,55 +367,57 @@ export default function Home() {
                 >
                   Register Your Shop
                 </Link>
-              </div>
+              </AnimateOnScroll>
               
               {/* Shop dashboard mockup */}
-              <div className="bg-white rounded-2xl shadow-2xl p-6 text-gray-900">
-                <div className="flex items-center justify-between mb-6">
-                  <h3 className="font-bold text-lg">Shop Dashboard</h3>
-                  <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">Live</span>
+              <AnimateOnScroll animation="fade-left" delay={200}>
+                <div className="bg-white rounded-2xl shadow-2xl p-6 text-gray-900">
+                  <div className="flex items-center justify-between mb-6">
+                    <h3 className="font-bold text-lg">Shop Dashboard</h3>
+                    <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">Live</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4 mb-6">
+                    <div className="bg-gray-50 rounded-xl p-4">
+                      <p className="text-sm text-gray-500">Active Bikes</p>
+                      <p className="text-2xl font-bold text-gray-900">12</p>
+                    </div>
+                    <div className="bg-gray-50 rounded-xl p-4">
+                      <p className="text-sm text-gray-500">This Month</p>
+                      <p className="text-2xl font-bold text-green-600">฿48,500</p>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-100">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-green-200 rounded-lg flex items-center justify-center">
+                          <Bike className="h-5 w-5 text-green-700" />
+                        </div>
+                        <div>
+                          <p className="font-medium text-sm">Honda Click #3</p>
+                          <p className="text-xs text-gray-500">Available</p>
+                        </div>
+                      </div>
+                      <div className="w-12 h-6 bg-green-500 rounded-full relative">
+                        <div className="absolute right-1 top-1 w-4 h-4 bg-white rounded-full shadow"></div>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-orange-50 rounded-lg border border-orange-100">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-orange-200 rounded-lg flex items-center justify-center">
+                          <Bike className="h-5 w-5 text-orange-700" />
+                        </div>
+                        <div>
+                          <p className="font-medium text-sm">PCX 160 #1</p>
+                          <p className="text-xs text-gray-500">Rented until Jan 25</p>
+                        </div>
+                      </div>
+                      <div className="w-12 h-6 bg-gray-300 rounded-full relative">
+                        <div className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow"></div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="bg-gray-50 rounded-xl p-4">
-                    <p className="text-sm text-gray-500">Active Bikes</p>
-                    <p className="text-2xl font-bold text-gray-900">12</p>
-                  </div>
-                  <div className="bg-gray-50 rounded-xl p-4">
-                    <p className="text-sm text-gray-500">This Month</p>
-                    <p className="text-2xl font-bold text-green-600">฿48,500</p>
-                  </div>
-                </div>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-100">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-green-200 rounded-lg flex items-center justify-center">
-                        <Bike className="h-5 w-5 text-green-700" />
-                      </div>
-                      <div>
-                        <p className="font-medium text-sm">Honda Click #3</p>
-                        <p className="text-xs text-gray-500">Available</p>
-                      </div>
-                    </div>
-                    <div className="w-12 h-6 bg-green-500 rounded-full relative">
-                      <div className="absolute right-1 top-1 w-4 h-4 bg-white rounded-full shadow"></div>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between p-3 bg-orange-50 rounded-lg border border-orange-100">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-orange-200 rounded-lg flex items-center justify-center">
-                        <Bike className="h-5 w-5 text-orange-700" />
-                      </div>
-                      <div>
-                        <p className="font-medium text-sm">PCX 160 #1</p>
-                        <p className="text-xs text-gray-500">Rented until Jan 25</p>
-                      </div>
-                    </div>
-                    <div className="w-12 h-6 bg-gray-300 rounded-full relative">
-                      <div className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              </AnimateOnScroll>
             </div>
           </div>
         </section>
@@ -457,7 +425,7 @@ export default function Home() {
         {/* Testimonial / Social Proof */}
         <section className="w-full py-20 md:py-28 bg-white">
           <div className="container px-4 md:px-6 mx-auto">
-            <div className="max-w-3xl mx-auto text-center">
+            <AnimateOnScroll animation="scale" className="max-w-3xl mx-auto text-center">
               <div className="flex justify-center gap-1 mb-6">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="h-6 w-6 fill-yellow-400 text-yellow-400" />
@@ -476,14 +444,14 @@ export default function Home() {
                   <p className="text-sm text-gray-500">Digital Nomad from Australia</p>
                 </div>
               </div>
-            </div>
+            </AnimateOnScroll>
           </div>
         </section>
 
         {/* CTA Section */}
         <section className="w-full py-20 md:py-28 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white relative overflow-hidden">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-green-500/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-green-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
           
           <div className="container px-4 md:px-6 mx-auto relative z-10 text-center">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl mb-6">
