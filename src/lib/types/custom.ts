@@ -23,6 +23,8 @@ export interface Scooter {
   weekly_price?: number;
   monthly_price?: number;
   deposit_amount: number;
+  number_plate?: string;
+  main_image?: string;
   is_active: boolean;
   image_url?: string;
 }

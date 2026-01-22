@@ -27,6 +27,8 @@ export async function addScooterAction(formData: FormData) {
   const engine_cc = parseInt(formData.get('engine_cc') as string) || 125
   const daily_price = parseInt(formData.get('daily_price') as string) || 250
   const deposit_amount = parseInt(formData.get('deposit_amount') as string) || 1000
+  const number_plate = formData.get('number_plate') as string
+  const main_image = formData.get('main_image') as string
 
   // 3. Create (using Admin Client to ensure success in Demo Mode)
   const supabase = createAdminClient()
@@ -40,6 +42,8 @@ export async function addScooterAction(formData: FormData) {
       engine_cc,
       daily_price,
       deposit_amount,
+      number_plate: number_plate || null,
+      main_image: main_image || null,
       is_active: true
     })
 
@@ -71,6 +75,8 @@ export async function updateScooterAction(id: string, formData: FormData) {
   const engine_cc = parseInt(formData.get('engine_cc') as string) || 125
   const daily_price = parseInt(formData.get('daily_price') as string) || 250
   const deposit_amount = parseInt(formData.get('deposit_amount') as string) || 1000
+  const number_plate = formData.get('number_plate') as string
+  const main_image = formData.get('main_image') as string
   const is_active = formData.get('is_active') === 'on'
 
   const supabase = createAdminClient()
@@ -83,6 +89,8 @@ export async function updateScooterAction(id: string, formData: FormData) {
       engine_cc,
       daily_price,
       deposit_amount,
+      number_plate: number_plate || null,
+      main_image: main_image || null,
       is_active
     })
     .eq('id', id)

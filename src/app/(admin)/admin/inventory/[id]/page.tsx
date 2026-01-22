@@ -42,6 +42,8 @@ export default async function EditScooterPage({ params }: { params: Promise<{ id
         engine_cc: scooter.engine_cc,
         daily_price: scooter.daily_price,
         deposit_amount: scooter.deposit_amount,
+        number_plate: scooter.number_plate,
+        main_image: scooter.main_image,
         is_active: scooter.is_active,
       }}
       translations={{
@@ -53,6 +55,8 @@ export default async function EditScooterPage({ params }: { params: Promise<{ id
         engineSize: t('engineSize'),
         dailyPrice: t('dailyPrice'),
         depositAmount: t('depositAmount'),
+        numberPlate: t('numberPlate'),
+        mainImage: t('mainImage'),
         availableForRent: t('availableForRent'),
         saveChanges: t('saveChanges'),
       }}

@@ -40,8 +40,13 @@ export default async function InventoryPage() {
         engineSize: t('engineSize'),
         dailyPrice: t('dailyPrice'),
         depositAmount: t('depositAmount'),
+        numberPlate: t('numberPlate'),
+        mainImage: t('mainImage'),
         availableForRent: t('availableForRent'),
         saveChanges: t('saveChanges'),
+        addNewScooter: t('addNewScooter'),
+        expandFleet: t('expandFleet'),
+        addToFleet: t('addToFleet'),
       }}
     />
   );

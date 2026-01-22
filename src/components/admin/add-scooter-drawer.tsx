@@ -7,23 +7,12 @@ import { ArrowLeft, Save } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { CameraUpload } from '@/components/ui/camera-upload'
-import { updateScooterAction } from '@/app/actions/inventory'
+import { addScooterAction } from '@/app/actions/inventory'
 
-interface EditScooterDrawerProps {
-  scooter: {
-    id: string
-    brand: string
-    model: string
-    engine_cc: number
-    daily_price: number
-    deposit_amount: number | null
-    number_plate: string | null
-    main_image: string | null
-    is_active: boolean
-  }
+interface AddScooterDrawerProps {
   translations: {
-    editScooter: string
-    updateDetails: string
+    addNewScooter: string
+    expandFleet: string
     brand: string
     modelName: string
     exampleModel: string
@@ -32,16 +21,15 @@ interface EditScooterDrawerProps {
     depositAmount: string
     numberPlate: string
     mainImage: string
-    availableForRent: string
-    saveChanges: string
+    addToFleet: string
   }
 }
 
-export function EditScooterDrawer({ scooter, translations: t }: EditScooterDrawerProps) {
+export function AddScooterDrawer({ translations: t }: AddScooterDrawerProps) {
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [mainImage, setMainImage] = useState(scooter.main_image || '')
+  const [mainImage, setMainImage] = useState('')
 
   const handleClose = () => {
     setIsOpen(false)
@@ -53,10 +41,10 @@ export function EditScooterDrawer({ scooter, translations: t }: EditScooterDrawe
     try {
       // Add the main image to form data
       formData.set('main_image', mainImage)
-      await updateScooterAction(scooter.id, formData)
+      await addScooterAction(formData)
       handleClose()
     } catch (error) {
-      console.error('Failed to update scooter:', error)
+      console.error('Failed to add scooter:', error)
       setIsSubmitting(false)
     }
   }
@@ -68,7 +56,7 @@ export function EditScooterDrawer({ scooter, translations: t }: EditScooterDrawe
         <Drawer.Content className="bg-white flex flex-col rounded-t-[24px] max-h-[75dvh] fixed bottom-0 left-0 right-0 z-50">
           {/* Handle */}
           <div className="mx-auto w-12 h-1.5 shrink-0 rounded-full bg-gray-300 mt-4 mb-6" />
-          
+
           {/* Header */}
           <div className="flex items-center gap-4 px-6 pb-4 border-b">
             <button
@@ -79,8 +67,8 @@ export function EditScooterDrawer({ scooter, translations: t }: EditScooterDrawe
               <ArrowLeft className="w-6 h-6" />
             </button>
             <div>
-              <h1 className="text-xl font-extrabold text-gray-900">{t.editScooter}</h1>
-              <p className="text-gray-500 text-sm">{t.updateDetails}</p>
+              <h1 className="text-xl font-extrabold text-gray-900">{t.addNewScooter}</h1>
+              <p className="text-gray-500 text-sm">{t.expandFleet}</p>
             </div>
           </div>
 
@@ -96,7 +84,7 @@ export function EditScooterDrawer({ scooter, translations: t }: EditScooterDrawe
                   name="brand"
                   id="brand"
                   className="w-full h-12 px-4 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 focus:outline-none transition-all font-medium text-gray-900"
-                  defaultValue={scooter.brand}
+                  defaultValue="Honda"
                   required
                 >
                   <option value="Honda">Honda</option>
@@ -115,7 +103,6 @@ export function EditScooterDrawer({ scooter, translations: t }: EditScooterDrawe
                   type="text"
                   name="model"
                   id="model"
-                  defaultValue={scooter.model}
                   placeholder={t.exampleModel}
                   className="h-12 rounded-xl"
                   required
@@ -131,7 +118,7 @@ export function EditScooterDrawer({ scooter, translations: t }: EditScooterDrawe
                   type="number"
                   name="engine_cc"
                   id="engine_cc"
-                  defaultValue={scooter.engine_cc}
+                  defaultValue="125"
                   className="h-12 rounded-xl"
                   required
                 />
@@ -146,7 +133,7 @@ export function EditScooterDrawer({ scooter, translations: t }: EditScooterDrawe
                   type="number"
                   name="daily_price"
                   id="daily_price"
-                  defaultValue={scooter.daily_price}
+                  placeholder="250"
                   className="h-12 rounded-xl"
                   required
                 />
@@ -161,7 +148,8 @@ export function EditScooterDrawer({ scooter, translations: t }: EditScooterDrawe
                   type="number"
                   name="deposit_amount"
                   id="deposit_amount"
-                  defaultValue={scooter.deposit_amount || ''}
+                  defaultValue="1000"
+                  placeholder="1000"
                   className="h-12 rounded-xl"
                 />
               </div>
@@ -175,7 +163,6 @@ export function EditScooterDrawer({ scooter, translations: t }: EditScooterDrawe
                   type="text"
                   name="number_plate"
                   id="number_plate"
-                  defaultValue={scooter.number_plate || ''}
                   placeholder="ABC-1234"
                   className="h-12 rounded-xl"
                 />
@@ -193,20 +180,6 @@ export function EditScooterDrawer({ scooter, translations: t }: EditScooterDrawe
                 />
               </div>
 
-              {/* Active Checkbox */}
-              <div className="flex items-center gap-3 pt-2">
-                <input
-                  type="checkbox"
-                  name="is_active"
-                  id="is_active"
-                  defaultChecked={scooter.is_active}
-                  className="w-5 h-5 text-orange-600 rounded focus:ring-orange-500 border-gray-300"
-                />
-                <label htmlFor="is_active" className="text-gray-900 font-medium select-none">
-                  {t.availableForRent}
-                </label>
-              </div>
-
               {/* Submit Button - Fixed at bottom */}
               <div className="sticky bottom-0 pt-4 pb-2 bg-white">
                 <Button
@@ -215,7 +188,7 @@ export function EditScooterDrawer({ scooter, translations: t }: EditScooterDrawe
                   className="w-full h-14 rounded-xl bg-orange-600 hover:bg-orange-700 shadow-lg shadow-orange-200 text-base font-bold"
                 >
                   <Save className="w-5 h-5" />
-                  {isSubmitting ? 'Saving...' : t.saveChanges}
+                  {isSubmitting ? 'Adding...' : t.addToFleet}
                 </Button>
               </div>
             </form>

@@ -117,6 +117,8 @@ export const translations = {
     engineSize: "Engine (cc)",
     dailyPrice: "Daily Price (฿)",
     depositAmount: "Deposit (฿)",
+    numberPlate: "Number Plate",
+    mainImage: "Main Image",
     addToFleet: "Add to Fleet",
     availableForRent: "Available for Rent (Active)",
     unauthorized: "Unauthorized",
