@@ -21,6 +21,7 @@ trigger: always_on
 - ❌ Add features not requested - Stick to requirements
 
 ### ✅ ALWAYS Do This
+- ✅ USE ONLY MCP SUPABASE-CHIANG WHEN DECIDING BETWEEN MCP STARTING WITH "SUPABASE"
 - ✅ Use unified Card component for all card-like UIs
 - ✅ Use unified Modal components for all dialogs
 - ✅ Use TanStack Query hooks for data fetching

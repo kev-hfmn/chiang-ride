@@ -1,5 +1,6 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, MapPin, ShieldCheck, Fuel, Gauge } from 'lucide-react'
 import { useLanguage } from '@/lib/i18n/language-context'
@@ -46,20 +47,25 @@ interface ScooterDetailViewProps {
 
 export function ScooterDetailView({ scooter, availability }: ScooterDetailViewProps) {
   const { t } = useLanguage()
+  const router = useRouter()
   const shop = scooter.shops
+
+  const handleBack = () => {
+    router.back()
+  }
 
   return (
     <div className="space-y-6 pb-20">
       {/* Header */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <Link
-            href="/dashboard"
-            className="text-gray-500 hover:text-gray-900 text-sm font-bold flex items-center gap-1"
+          <button
+            onClick={handleBack}
+            className="text-gray-500 hover:text-gray-900 text-sm font-bold flex items-center gap-1 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            {t('backToHome')}
-          </Link>
+            Back
+          </button>
         </div>
       </div>
 

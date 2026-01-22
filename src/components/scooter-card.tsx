@@ -1,4 +1,4 @@
-import { Settings } from 'lucide-react'
+import { Pencil } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { ScooterImage } from '@/components/scooter-image'
@@ -11,6 +11,8 @@ interface ScooterCardProps {
     model: string
     engine_cc: number
     daily_price: number
+    weekly_price?: number | null
+    monthly_price?: number | null
     deposit_amount: number | null
     is_active: boolean
     image_url?: string | null
@@ -20,6 +22,7 @@ interface ScooterCardProps {
   onEdit?: () => void
   translations?: {
     deposit?: string
+    editScooter?: string
   }
 }
 
@@ -43,24 +46,12 @@ export function ScooterCard({ scooter, isAdmin = false, onEdit, translations }: 
             <div className={`w-3 h-3 rounded-full ${scooter.is_active ? 'bg-green-500' : 'bg-red-500'} shadow-md`} />
           </div>
 
-          {/* Admin Edit Button Overlay */}
-          {isAdmin && onEdit && (
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-200 flex items-center justify-center">
-              <Button
-                variant="secondary"
-                size="icon"
-                onClick={(e) => {
-                  e.preventDefault()
-                  e.stopPropagation()
-                  onEdit()
-                }}
-                className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-full w-12 h-12 bg-white shadow-lg hover:bg-gray-50"
-              >
-                <Settings className="w-6 h-6" />
-              </Button>
-            </div>
-          )}
-        </div>
+          {/* Engine CC Badge */}
+          <Badge variant="secondary" className="absolute top-2 right-2 text-xs bg-white/90 backdrop-blur-sm shadow-sm">
+            {scooter.engine_cc}cc
+          </Badge>
+
+                  </div>
 
         {/* Details */}
         <div className="p-4 space-y-3">
@@ -73,36 +64,43 @@ export function ScooterCard({ scooter, isAdmin = false, onEdit, translations }: 
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
-            <Badge variant="secondary" className="text-xs">
-              {scooter.engine_cc}cc
-            </Badge>
-            {scooter.deposit_amount && (
-              <span className="text-xs text-gray-500">
-                {translations?.deposit || 'Deposit'}: {scooter.deposit_amount}฿
-              </span>
-            )}
-          </div>
+          {scooter.deposit_amount && (
+            <p className="text-xs text-gray-500">
+              {translations?.deposit || 'Deposit'}: {scooter.deposit_amount}฿
+            </p>
+          )}
 
-          <div className="flex items-end justify-between pt-2 border-t border-gray-100">
-            <div>
-              <span className="text-2xl font-bold text-gray-900">
-                {scooter.daily_price}฿
-              </span>
-              <span className="text-gray-500 text-sm">/day</span>
+          <div className="space-y-2 pt-2 border-t border-gray-100">
+            <div className="grid grid-cols-3 gap-2 text-center">
+              <div>
+                <p className="text-xs text-gray-500 font-medium">Daily</p>
+                <p className="text-sm font-bold text-gray-900">{scooter.daily_price}฿</p>
+              </div>
+              {scooter.weekly_price && (
+                <div>
+                  <p className="text-xs text-gray-500 font-medium">Weekly</p>
+                  <p className="text-sm font-bold text-gray-900">{scooter.weekly_price}฿</p>
+                </div>
+              )}
+              {scooter.monthly_price && (
+                <div>
+                  <p className="text-xs text-gray-500 font-medium">Monthly</p>
+                  <p className="text-sm font-bold text-gray-900">{scooter.monthly_price}฿</p>
+                </div>
+              )}
             </div>
             {isAdmin && onEdit && (
               <Button
-                variant="ghost"
-                size="icon"
+                variant="secondary"
                 onClick={(e) => {
                   e.preventDefault()
                   e.stopPropagation()
                   onEdit()
                 }}
-                className="shrink-0"
+                className="w-full mt-2"
               >
-                <Settings className="w-5 h-5" />
+                <Pencil className="w-4 h-4 mr-2" />
+                {translations?.editScooter || 'Edit Scooter'}
               </Button>
             )}
           </div>

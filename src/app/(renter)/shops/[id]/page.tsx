@@ -8,17 +8,13 @@ import {
   Star,
   Share,
   Heart,
-  ChevronRight,
-  Fuel,
-  Gauge,
 } from "lucide-react";
-import { ScooterImage } from "@/components/scooter-image";
 import { getTranslations } from "@/lib/i18n/server";
 import OptimizedImage from "@/components/ui/OptimizedImage";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { ScooterCard } from "@/components/scooter-list/scooter-card";
 
 export default async function ShopDetailPage({
   params,
@@ -152,70 +148,9 @@ export default async function ShopDetailPage({
             </span>
           </div>
 
-          <div className="flex flex-col gap-3">
+          <div className="grid grid-cols-2 gap-x-2 gap-y-6 lg:grid-cols-3 lg:gap-x-6 lg:gap-y-8">
             {scooters?.map((scooter) => (
-              <Link key={scooter.id} href={`/scooters/${scooter.id}`} className="block">
-                <Card className="overflow-hidden hover:shadow-md transition-shadow duration-200 group ring-0">
-                  <div className="flex">
-                    {/* Scooter Image */}
-                    <div className="w-28 shrink-0 bg-gray-100 relative self-stretch">
-                      <ScooterImage
-                        brand={scooter.brand}
-                        model={scooter.model}
-                        scooterId={scooter.id}
-                        imageUrl={scooter.image_url}
-                        fill={true}
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-
-                    {/* Details */}
-                    <div className="flex-1 p-3 flex flex-col justify-between min-w-0">
-                      <div>
-                        <div className="flex items-start justify-between gap-2">
-                          <div className="min-w-0">
-                            <h3 className="font-bold text-gray-900 text-[15px] truncate">
-                              {scooter.model}
-                            </h3>
-                            <p className="text-xs text-gray-400 font-medium">
-                              {scooter.brand}
-                            </p>
-                          </div>
-                          <Badge
-                            variant={scooter.is_active ? "success" : "destructive"}
-                            className="text-[10px] shrink-0"
-                          >
-                            {scooter.is_active ? t("available") : t("unavailable")}
-                          </Badge>
-                        </div>
-
-                        {/* Specs */}
-                        <div className="flex items-center gap-3 mt-2 text-xs text-gray-400">
-                          <span className="flex items-center gap-1">
-                            <Gauge className="w-3 h-3" />
-                            {scooter.engine_cc}cc
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <Fuel className="w-3 h-3" />
-                            Auto
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Price Row */}
-                      <div className="flex items-center justify-between mt-2">
-                        <div>
-                          <span className="font-medium text-sm text-gray-900">
-                            ฿{scooter.daily_price}
-                          </span>
-                          <span className="text-gray-400 text-xs"> /day</span>
-                        </div>
-                        <ChevronRight className="w-4 h-4 text-gray-300 group-hover:text-gray-500 transition-colors" />
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              </Link>
+              <ScooterCard key={scooter.id} scooter={scooter} />
             ))}
           </div>
         </div>

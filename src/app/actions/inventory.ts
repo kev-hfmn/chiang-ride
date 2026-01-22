@@ -26,6 +26,8 @@ export async function addScooterAction(formData: FormData) {
   const brand = formData.get('brand') as string
   const engine_cc = parseInt(formData.get('engine_cc') as string) || 125
   const daily_price = parseInt(formData.get('daily_price') as string) || 250
+  const weekly_price = parseInt(formData.get('weekly_price') as string) || null
+  const monthly_price = parseInt(formData.get('monthly_price') as string) || null
   const deposit_amount = parseInt(formData.get('deposit_amount') as string) || 1000
   const number_plate = formData.get('number_plate') as string
   const main_image = formData.get('main_image') as string
@@ -41,6 +43,8 @@ export async function addScooterAction(formData: FormData) {
       model,
       engine_cc,
       daily_price,
+      weekly_price,
+      monthly_price,
       deposit_amount,
       number_plate: number_plate || null,
       main_image: main_image || null,
@@ -52,10 +56,11 @@ export async function addScooterAction(formData: FormData) {
     throw new Error(`Failed to add scooter: ${error.message}`)
   }
 
-  // 4. Revalidate & Redirect
+  // 4. Revalidate
   revalidatePath('/admin/inventory')
   revalidatePath('/')
-  redirect('/admin/inventory')
+  
+  return { success: true, message: 'Scooter added successfully' }
 }
 
 /**
@@ -74,6 +79,8 @@ export async function updateScooterAction(id: string, formData: FormData) {
   const brand = formData.get('brand') as string
   const engine_cc = parseInt(formData.get('engine_cc') as string) || 125
   const daily_price = parseInt(formData.get('daily_price') as string) || 250
+  const weekly_price = parseInt(formData.get('weekly_price') as string) || null
+  const monthly_price = parseInt(formData.get('monthly_price') as string) || null
   const deposit_amount = parseInt(formData.get('deposit_amount') as string) || 1000
   const number_plate = formData.get('number_plate') as string
   const main_image = formData.get('main_image') as string
@@ -88,6 +95,8 @@ export async function updateScooterAction(id: string, formData: FormData) {
       model,
       engine_cc,
       daily_price,
+      weekly_price,
+      monthly_price,
       deposit_amount,
       number_plate: number_plate || null,
       main_image: main_image || null,
@@ -104,5 +113,6 @@ export async function updateScooterAction(id: string, formData: FormData) {
 
   revalidatePath('/admin/inventory')
   revalidatePath('/')
-  redirect('/admin/inventory')
+  
+  return { success: true, message: 'Scooter updated successfully' }
 }

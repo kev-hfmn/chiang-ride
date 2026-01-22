@@ -3,10 +3,11 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Drawer } from 'vaul'
-import { ArrowLeft, Save } from 'lucide-react'
+import { ArrowLeft, Save, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { CameraUpload } from '@/components/ui/camera-upload'
+import { useToast } from '@/hooks/use-toast'
 import { updateScooterAction } from '@/app/actions/inventory'
 
 interface EditScooterDrawerProps {
@@ -42,6 +43,7 @@ export function EditScooterDrawer({ scooter, translations: t }: EditScooterDrawe
   const [isOpen, setIsOpen] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [mainImage, setMainImage] = useState(scooter.main_image || '')
+  const { showToast } = useToast()
 
   const handleClose = () => {
     setIsOpen(false)
@@ -54,9 +56,12 @@ export function EditScooterDrawer({ scooter, translations: t }: EditScooterDrawe
       // Add the main image to form data
       formData.set('main_image', mainImage)
       await updateScooterAction(scooter.id, formData)
+      showToast.success('Scooter Updated', `${scooter.model} has been updated successfully`)
       handleClose()
     } catch (error) {
       console.error('Failed to update scooter:', error)
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
+      showToast.error('Update Failed', errorMessage)
       setIsSubmitting(false)
     }
   }
@@ -212,10 +217,19 @@ export function EditScooterDrawer({ scooter, translations: t }: EditScooterDrawe
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full h-14 rounded-xl bg-orange-600 hover:bg-orange-700 shadow-lg shadow-orange-200 text-base font-bold"
+                  className="w-full h-14 rounded-xl bg-orange-600 hover:bg-orange-700 shadow-lg shadow-orange-200 text-base font-bold flex items-center justify-center gap-2"
                 >
-                  <Save className="w-5 h-5" />
-                  {isSubmitting ? 'Saving...' : t.saveChanges}
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      Saving...
+                    </>
+                  ) : (
+                    <>
+                      <Save className="w-5 h-5" />
+                      {t.saveChanges}
+                    </>
+                  )}
                 </Button>
               </div>
             </form>

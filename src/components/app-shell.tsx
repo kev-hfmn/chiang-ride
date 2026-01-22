@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
-import { Home, Search, User, Bike, Briefcase, Settings, Calendar, CalendarDays, ChevronLeft } from 'lucide-react'
+import { Home, Search, User, Bike, Briefcase, Settings, Calendar, CalendarDays, ChevronLeft, ClipboardList } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
 import { useLanguage } from '@/lib/i18n/language-context'
@@ -101,10 +101,10 @@ export default function AppShell({ children }: AppShellProps) {
             </>
           ) : (
             <>
-              <NavItem href="/admin" icon={Home} label={t('navDashboard')} active={pathname === '/admin'} />
+              <NavItem href="/admin" icon={Home} label="Home" active={pathname === '/admin'} />
               <NavItem href="/admin/inventory" icon={Bike} label={t('navFleet')} active={pathname.startsWith('/admin/inventory')} />
               <NavItem href="/admin/calendar" icon={CalendarDays} label={t('navCalendar')} active={pathname.startsWith('/admin/calendar')} />
-              <NavItem href="/admin/bookings" icon={Calendar} label={t('navBookings')} active={pathname.startsWith('/admin/bookings')} />
+              <NavItem href="/admin/bookings" icon={ClipboardList} label={t('navBookings')} active={pathname.startsWith('/admin/bookings')} />
               <NavItem href="/admin/settings" icon={Settings} label={t('navAdmin')} active={pathname.startsWith('/admin/settings')} />
             </>
           )}
@@ -126,10 +126,10 @@ export default function AppShell({ children }: AppShellProps) {
               </>
             ) : (
               <>
-                <DesktopNavItem href="/admin" icon={Briefcase} label={t('navShopOverview')} active={pathname === '/admin'} />
+                <DesktopNavItem href="/admin" icon={Briefcase} label="Home" active={pathname === '/admin'} />
                 <DesktopNavItem href="/admin/inventory" icon={Bike} label={t('navManageInventory')} active={pathname.startsWith('/admin/inventory')} />
                 <DesktopNavItem href="/admin/calendar" icon={CalendarDays} label={t('navShopCalendar')} active={pathname.startsWith('/admin/calendar')} />
-                <DesktopNavItem href="/admin/bookings" icon={Calendar} label={t('navActiveOrders')} active={pathname.startsWith('/admin/bookings')} />
+                <DesktopNavItem href="/admin/bookings" icon={ClipboardList} label={t('navActiveOrders')} active={pathname.startsWith('/admin/bookings')} />
                 <DesktopNavItem href="/admin/settings" icon={Settings} label={t('navGlobalSettings')} active={pathname.startsWith('/admin/settings')} />
               </>
             )}

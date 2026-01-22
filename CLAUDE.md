@@ -32,26 +32,40 @@ node scripts/seed.js
 - **Database**: Supabase (PostgreSQL with Row Level Security)
 - **Auth**: Supabase Magic Link OTP (currently disabled for demo)
 - **Styling**: Tailwind CSS 4
+- **UI Components**: shadcn/ui (Radix primitives), Vaul (drawers), Framer Motion
+- **Maps**: Leaflet + react-leaflet
 
 ### Directory Structure
 
 ```
 src/
 ├── app/
-│   ├── (public)/         # Landing page
-│   ├── login/            # Magic link login
-│   ├── auth/             # OAuth callback & signout routes
-│   ├── app/              # Protected app routes
-│   │   ├── shops/        # Renter: browse & book
-│   │   ├── bookings/     # Renter: my bookings
-│   │   └── shop-admin/   # Shop owner: dashboard, inventory, calendar
-│   └── actions/          # Server actions (inventory, bookings, renter)
-├── components/           # Shared UI components
+│   ├── page.tsx              # Landing page
+│   ├── login/                # Magic link login
+│   ├── auth/                 # OAuth callback & signout routes
+│   ├── (renter)/             # Renter route group
+│   │   ├── dashboard/        # Renter home
+│   │   ├── shops/            # Browse shops & scooters
+│   │   ├── scooters/[id]/    # Scooter detail
+│   │   ├── bookings/         # My bookings
+│   │   └── profile/          # User profile
+│   ├── (admin)/admin/        # Shop owner route group
+│   │   ├── inventory/        # Manage fleet
+│   │   ├── bookings/         # View bookings
+│   │   ├── calendar/         # Availability calendar
+│   │   └── settings/         # Shop settings
+│   └── actions/              # Server actions (inventory, bookings, renter, shop-settings)
+├── components/
+│   ├── ui/                   # shadcn/ui components (button, card, dialog, sheet, etc.)
+│   ├── admin/                # Shop owner components
+│   └── bookings/             # Booking flow components
 └── lib/
-    ├── supabase/         # Client configurations (client, server, admin)
-    ├── db/               # Database query functions
-    ├── types/            # TypeScript interfaces
-    └── utils.ts          # cn() utility
+    ├── supabase/             # Client configurations (client, server, admin)
+    ├── db/                   # Database query functions
+    ├── i18n/                 # Internationalization (EN/TH)
+    ├── types/                # TypeScript interfaces
+    ├── constants/            # Booking status, etc.
+    └── utils.ts              # cn() utility
 ```
 
 ### Supabase Clients
@@ -74,18 +88,36 @@ Server actions in `src/app/actions/` use admin client for demo mode:
 // Example: src/app/actions/inventory.ts
 'use server'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { getAdminShop } from '@/lib/db/admin'
+
+export async function addScooterAction(formData: FormData) {
+  const shop = await getAdminShop()  // Gets user's shop or demo shop
+  const supabase = createAdminClient()
+  // ... perform operation
+  revalidatePath('/admin/inventory')
+}
 ```
 
 ### Demo Mode
 
-Auth is disabled for demo. Hardcoded demo renter ID: `'demo-renter-123'`. The app shell (`src/app/app/app-shell.tsx`) has a role toggle to switch between Renter and Shop Owner views.
+Auth is disabled for demo. The app shell (`src/components/app-shell.tsx`) detects mode from URL path (`/admin` vs `/dashboard`). Demo shop "Chiang Mai Scooters" is loaded when no authenticated user exists.
+
+### Internationalization
+
+Uses React Context for EN/TH translations:
+```typescript
+import { useLanguage } from '@/lib/i18n/language-context'
+const { t, language, setLanguage } = useLanguage()
+// Usage: t('bookNow'), t('perDay')
+```
+Translations defined in `src/lib/i18n/translations.ts`.
 
 ## Key Files
 
-- `src/app/app/app-shell.tsx` - Role-based navigation with mode toggle
-- `src/components/availability-grid.tsx` - Interactive 14-day calendar
-- `src/middleware.ts` - Auth middleware (protections commented out)
-- `src/lib/db/admin.ts` - Database query functions (getAdminShop, getAdminInventory)
+- `src/components/app-shell.tsx` - Role-based navigation with Renter/Shop mode toggle
+- `src/components/availability-grid.tsx` - Interactive 14-day availability calendar
+- `src/lib/db/admin.ts` - Database queries (getAdminShop, getAdminInventory, getAdminBookings)
+- `src/lib/types/custom.ts` - TypeScript interfaces (Shop, Scooter, Booking, BookingStatus)
 
 ## Environment Variables
 

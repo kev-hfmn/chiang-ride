@@ -274,6 +274,8 @@ export const translations = {
     engineSize: "ขนาดเครื่องยนต์ (ซีซี)",
     dailyPrice: "ราคาเช่ารายวัน (บาท)",
     depositAmount: "เงินมัดจำ (บาท)",
+    numberPlate: "ทะเบียนรถ",
+    mainImage: "รูปภาพหลัก",
     addToFleet: "เพิ่มในรายการรถ",
     availableForRent: "เปิดให้เช่า (ใช้งาน)",
     unauthorized: "ไม่ได้รับอนุญาต",

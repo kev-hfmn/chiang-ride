@@ -20,13 +20,13 @@ export interface Scooter {
   brand: string;
   engine_cc: number;
   daily_price: number;
-  weekly_price?: number;
-  monthly_price?: number;
+  weekly_price?: number | null;
+  monthly_price?: number | null;
   deposit_amount: number;
-  number_plate?: string;
-  main_image?: string;
+  number_plate?: string | null;
+  main_image?: string | null;
   is_active: boolean;
-  image_url?: string;
+  image_url?: string | null;
 }
 
 export type BookingStatus =

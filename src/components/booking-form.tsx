@@ -4,6 +4,7 @@ import { useState, useActionState } from "react";
 import { createBookingRequestAction } from "@/app/actions/renter";
 import { Calendar as CalendarIcon, Loader2 } from "lucide-react";
 import { format, differenceInDays, addDays } from "date-fns";
+import { calculateBookingPrice } from "@/lib/services/booking-service";
 import { Scooter } from "@/lib/types/custom";
 
 interface BookingFormProps {
@@ -20,7 +21,7 @@ export default function BookingForm({ scooter, shopId }: BookingFormProps) {
 
   const today = new Date().toISOString().split("T")[0];
 
-  const BOOKING_FEE_PERCENT = 0.05; // 5% service fee
+  const BOOKING_FEE_PERCENT = 5; // 5% service fee
 
   const calculateTotal = () => {
     if (!startDate || !endDate) return null;
@@ -29,15 +30,22 @@ export default function BookingForm({ scooter, shopId }: BookingFormProps) {
     const days = differenceInDays(end, start);
     if (days <= 0) return null;
 
-    const rentalPrice = days * scooter.daily_price;
-    const bookingFee = Math.round(rentalPrice * BOOKING_FEE_PERCENT);
-    const totalPrice = rentalPrice + bookingFee;
+    // Use the centralized booking price calculation
+    const pricing = calculateBookingPrice(
+      scooter.daily_price,
+      scooter.weekly_price || null,
+      scooter.monthly_price || null,
+      0, // No deposit for display purposes
+      days,
+      BOOKING_FEE_PERCENT
+    );
 
     return {
-      days,
-      rentalPrice,
-      bookingFee,
-      totalPrice,
+      days: pricing.rentalDays,
+      rentalPrice: pricing.subtotal,
+      bookingFee: pricing.bookingFee,
+      totalPrice: pricing.subtotal + pricing.bookingFee,
+      priceBreakdown: pricing.priceBreakdown,
     };
   };
 
@@ -93,7 +101,7 @@ export default function BookingForm({ scooter, shopId }: BookingFormProps) {
         <div className="border-t border-gray-200 mt-2 pt-3 space-y-2">
           <div className="flex justify-between items-center text-sm">
             <span className="text-gray-500">
-              {totals.days} days × {scooter.daily_price}฿
+              {totals.days} days
             </span>
             <span className="font-medium text-gray-700">
               {totals.rentalPrice}฿
