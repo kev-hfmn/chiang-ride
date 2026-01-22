@@ -43,7 +43,7 @@ export default function AppShell({ children }: AppShellProps) {
   return (
     <div className="flex flex-col h-screen bg-[#F8FAFC]">
       {/* Top Header - Premium Floating Style */}
-      <header className="h-16 bg-linear-to-r from-emerald-600 to-green-600 flex items-center justify-between px-6 sticky top-0 z-50 shadow-lg shadow-green-900/10 shrink-0 border-none">
+      <header className="h-16 bg-linear-to-r from-emerald-600 to-green-600 flex items-center justify-between px-2 sticky top-0 z-50 shadow-lg shadow-green-900/10 shrink-0 border-none">
         <div className="flex items-center gap-3">
           <Link href={isShopMode ? "/admin" : "/dashboard"} className="font-black text-xl text-white tracking-tighter flex items-center gap-2 group">
            <div className="bg-gray-50/90 rounded-2xl p-1 h-12 w-12">
@@ -77,7 +77,7 @@ export default function AppShell({ children }: AppShellProps) {
 
       {/* Main Content Area */}
       <main className="flex-1 overflow-y-auto pb-28 lg:pb-6 scroll-smooth lg:ml-64">
-        <div className="container mx-auto max-w-2xl min-h-full px-4 pb-4 pt-6 md:px-6 md:pb-6 md:pt-10">
+        <div className="container mx-auto max-w-2xl min-h-full px-2 pb-4 pt-6 md:px-6 md:pb-6 md:pt-10">
           <motion.div
             key={pathname}
             initial={{ opacity: 0, y: 10 }}

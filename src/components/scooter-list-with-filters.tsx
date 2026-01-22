@@ -49,7 +49,7 @@ export function ScooterListWithFilters({ scooters }: ScooterListWithFiltersProps
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-2 gap-x-4 gap-y-6 lg:grid-cols-3 lg:gap-x-6 lg:gap-y-8">
+        <div className="grid grid-cols-2 gap-x-2 gap-y-4 lg:grid-cols-3 lg:gap-x-6 lg:gap-y-8">
           {filteredScooters.map((scooter) => (
             <ScooterCard key={scooter.id} scooter={scooter} />
           ))}

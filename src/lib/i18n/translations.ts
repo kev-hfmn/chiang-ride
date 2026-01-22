@@ -58,7 +58,7 @@ export const translations = {
     guest: "Guest",
 
     // Shop Admin - Inventory
-    fleetInventory: "Fleet Inventory",
+    fleetInventory: "Your Fleet",
     manageInventory: "Manage your bikes and pricing.",
     availabilityLink: "Availability",
     addScooter: "Add Scooter",

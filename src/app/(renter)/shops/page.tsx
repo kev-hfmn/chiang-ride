@@ -47,7 +47,7 @@ export default async function ShopsPage() {
       )}
 
       {/* Shop List - Airbnb style grid */}
-      <div className="grid grid-cols-2 gap-x-4 gap-y-6 lg:grid-cols-3 lg:gap-x-6 lg:gap-y-8">
+      <div className="grid grid-cols-2 gap-x-2 gap-y-6 lg:grid-cols-3 lg:gap-x-6 lg:gap-y-8">
         {shops?.map((shop) => {
           const ratingStats = ratingsMap.get(shop.id);
           return (
@@ -75,16 +75,16 @@ export default async function ShopsPage() {
                 {shop.is_verified && (
                   <Badge
                     variant="secondary"
-                    className="absolute top-2 right-2 bg-white/95 backdrop-blur-sm text-green-700 shadow-sm"
+                    className="absolute top-2 right-2 bg-white/75 backdrop-blur-sm text-green-700 shadow-md"
                   >
-                    <ShieldCheck className="w-3 h-3 mr-1" />
+                    <ShieldCheck className="w-3 h-3" />
                     {t('verified')}
                   </Badge>
                 )}
               </div>
 
               {/* Content below image */}
-              <div className="pt-2.5 space-y-0.5">
+              <div className="pt-2.5 space-y-1">
                 <div className="flex items-start justify-between gap-2">
                   <h3 className="font-semibold text-gray-900 text-sm leading-tight">
                     {shop.name}
@@ -96,11 +96,11 @@ export default async function ShopsPage() {
                     />
                   )}
                 </div>
-                <p className="text-xs text-gray-500 flex items-center gap-1">
+                <p className="text-xs font-light text-gray-500 flex items-center gap-1">
                   <MapPin className="w-3 h-3 shrink-0" />
                   <span className="truncate">{shop.address || shop.city}</span>
                 </p>
-                <p className="text-xs text-gray-500 line-clamp-1 pt-0.5">
+                <p className="text-xs font-medium text-gray-700 line-clamp-2 pt-0.5">
                   {shop.description || t('reliableScooterRentals')}
                 </p>
               </div>

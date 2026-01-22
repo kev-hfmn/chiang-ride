@@ -23,9 +23,10 @@ export function ScooterCard({ scooter }: ScooterCardProps) {
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         />
         {/* Availability badge */}
-        <div className="absolute top-2 right-2 bg-white/95 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-semibold text-green-700 flex items-center gap-1.5 shadow-sm">
-          <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
-          Available
+        <div className="absolute top-2 right-2 bg-white/55 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-normal flex items-center gap-1.5 shadow-md">
+          <span className="text-xs text-gray-500 rounded shrink-0">
+            {scooter.engine_cc}cc
+          </span>
         </div>
       </div>
 
@@ -35,9 +36,7 @@ export function ScooterCard({ scooter }: ScooterCardProps) {
           <h3 className="font-semibold text-gray-900 text-sm leading-tight">
             {scooter.brand} {scooter.model}
           </h3>
-          <span className="text-xs text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded shrink-0">
-            {scooter.engine_cc}cc
-          </span>
+
         </div>
         <p className="text-xs text-gray-500 flex items-center gap-1 truncate">
           <MapPin className="w-3 h-3 shrink-0" />
@@ -45,9 +44,9 @@ export function ScooterCard({ scooter }: ScooterCardProps) {
             {scooter.shops?.name || scooter.shops?.city || 'Chiang Mai'}
           </span>
         </p>
-        <p className="pt-1">
-          <span className="font-semibold text-gray-900">{scooter.daily_price}฿</span>
-          <span className="text-gray-500 text-sm"> /day</span>
+        <p className="pt-0">
+          <span className="font-medium text-sm text-gray-900">{scooter.daily_price}฿</span>
+          <span className="text-gray-500 text-xs"> /day</span>
         </p>
       </div>
     </Link>

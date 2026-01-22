@@ -97,9 +97,9 @@ export function RatingBadge({ averageRating, reviewCount }: RatingBadgeProps) {
   }
 
   return (
-    <div className="flex items-center gap-1 text-sm">
-      <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-      <span className="font-bold text-gray-700">{averageRating}</span>
+    <div className="flex items-center gap-1 text-xs">
+      <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+      <span className="font-medium text-gray-700">{averageRating}</span>
       <span className="text-gray-400">({reviewCount})</span>
     </div>
   );

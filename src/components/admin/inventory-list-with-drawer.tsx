@@ -80,22 +80,17 @@ export function InventoryListWithDrawer({ scooters, translations: t }: Inventory
             <p className="text-gray-500 text-sm">{t.manageInventory}</p>
           </div>
           <div className="flex gap-2 items-center">
-            <Button variant="outline" asChild className="rounded-xl">
-              <Link href="/admin/calendar">
-                <Calendar className="w-5 h-5" />
-                <span className="hidden sm:inline">{t.availabilityLink}</span>
-              </Link>
-            </Button>
+
             <Button asChild className="rounded-xl bg-orange-600 hover:bg-orange-700 shadow-md">
               <Link href="/admin/inventory/new">
                 <Plus className="w-5 h-5" />
-                <span className="hidden sm:inline">{t.addScooter}</span>
+                <span className="">{t.addScooter}</span>
               </Link>
             </Button>
           </div>
         </div>
 
-        <div className="grid gap-4 overflow-hidden">
+        <div className="grid gap-2 overflow-hidden">
           {scooters.length === 0 ? (
             <Card className="border-dashed">
               <CardContent className="p-8 text-center text-gray-500">

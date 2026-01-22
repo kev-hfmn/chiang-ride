@@ -57,7 +57,7 @@ export function EditScooterDrawer({ scooter, translations: t }: EditScooterDrawe
     <Drawer.Root open={isOpen} onOpenChange={(open) => !open && handleClose()}>
       <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 bg-black/40 z-50" />
-        <Drawer.Content className="bg-white flex flex-col rounded-t-[24px] h-[90vh] mt-24 fixed bottom-0 left-0 right-0 z-50">
+        <Drawer.Content className="bg-white flex flex-col rounded-t-[24px] max-h-[85dvh] fixed bottom-0 left-0 right-0 z-50">
           {/* Handle */}
           <div className="mx-auto w-12 h-1.5 shrink-0 rounded-full bg-gray-300 mt-4 mb-6" />
           
