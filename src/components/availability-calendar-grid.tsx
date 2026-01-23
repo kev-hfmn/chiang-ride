@@ -123,7 +123,7 @@ export function AvailabilityCalendarGrid({
       <div className="overflow-x-auto">
         <div className="min-w-[800px]">
           {/* Header Row */}
-          <div className="grid grid-cols-[200px_repeat(14,1fr)] border-b border-gray-100">
+          <div className="grid grid-cols-[150px_repeat(14,1fr)] border-b border-gray-100">
             <div className="p-4 font-bold text-gray-400 text-xs uppercase tracking-wider">Scooter</div>
           {dates.map((date, i) => (
             <div key={i} className="p-2 text-center border-l border-gray-50 bg-gray-50/50">
@@ -137,7 +137,7 @@ export function AvailabilityCalendarGrid({
 
         {/* Scooter Rows */}
         {scooters.map(scooter => (
-          <div key={scooter.id} className="grid grid-cols-[200px_repeat(14,1fr)] border-b border-gray-50 hover:bg-gray-50 transition-colors">
+          <div key={scooter.id} className="grid grid-cols-[150px_repeat(14,1fr)] border-b border-gray-50 hover:bg-gray-50 transition-colors">
             <div className="p-2 flex items-center gap-3">
 
               <div className="truncate pl-2">

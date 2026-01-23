@@ -1,5 +1,6 @@
 import { getShop, getScooters } from "@/lib/db/shops";
 import { getShopReviews, getShopRatingStats } from "@/lib/db/reviews";
+import { getScootersAvailabilityToday } from "@/lib/db/availability";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -32,6 +33,10 @@ export default async function ShopDetailPage({
   ]);
 
   if (!shop) return <div>Shop not found</div>;
+
+  // Fetch today's availability for all scooters
+  const scooterIds = scooters.map(s => s.id);
+  const availabilityMap = await getScootersAvailabilityToday(scooterIds);
 
   return (
     <div className="-mx-2 md:-mx-6 -mt-6 md:-mt-10">
@@ -86,7 +91,7 @@ export default async function ShopDetailPage({
       </div>
 
       {/* Content */}
-      <div className="px-4 pt-5 space-y-5 pb-6">
+      <div className="px-2 pt-5 space-y-5 pb-6">
         {/* Shop Title & Info */}
         <div className="space-y-3">
           <h1 className="text-2xl font-bold text-gray-900">{shop.name}</h1>
@@ -150,7 +155,11 @@ export default async function ShopDetailPage({
 
           <div className="grid grid-cols-2 gap-x-2 gap-y-6 lg:grid-cols-3 lg:gap-x-6 lg:gap-y-8">
             {scooters?.map((scooter) => (
-              <ScooterCard key={scooter.id} scooter={scooter} />
+              <ScooterCard 
+                key={scooter.id} 
+                scooter={scooter}
+                availableToday={availabilityMap.get(scooter.id)}
+              />
             ))}
           </div>
         </div>

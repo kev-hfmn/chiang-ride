@@ -205,7 +205,7 @@ export function InventoryListWithDrawer({ scooters: initialScooters, translation
           </div>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-2">
           {scooters.length === 0 ? (
             <Card className="border-dashed col-span-2 lg:col-span-3">
               <CardContent className="p-8 text-center text-gray-500">
