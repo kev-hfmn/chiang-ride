@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef, useCallback, useEffect } from 'react'
 import { Camera, Upload, X, RotateCcw } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { createClient } from '@/lib/supabase/client'
@@ -10,22 +10,33 @@ interface CameraUploadProps {
   currentImage?: string
   bucketName?: string
   className?: string
+  showFallback?: boolean
+  fallbackSrc?: string
 }
 
 export function CameraUpload({ 
   onImageUpload, 
   currentImage, 
   bucketName = 'scooter-images',
-  className = '' 
+  className = '',
+  showFallback = true,
+  fallbackSrc = '/images/scooter-placeholder.jpg'
 }: CameraUploadProps) {
   const [isUploading, setIsUploading] = useState(false)
-  const [previewUrl, setPreviewUrl] = useState<string | null>(currentImage || null)
+  const [previewUrl, setPreviewUrl] = useState<string | null>(currentImage && currentImage.trim() ? currentImage : null)
   const [error, setError] = useState<string | null>(null)
+  const [imageError, setImageError] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [isCameraActive, setIsCameraActive] = useState(false)
   const [stream, setStream] = useState<MediaStream | null>(null)
+
+  // Update preview URL when currentImage prop changes
+  useEffect(() => {
+    setPreviewUrl(currentImage && currentImage.trim() ? currentImage : null)
+    setImageError(false)
+  }, [currentImage])
 
   const startCamera = useCallback(async () => {
     try {
@@ -150,10 +161,19 @@ export function CameraUpload({
 
   const removeImage = () => {
     setPreviewUrl(null)
+    setImageError(false)
     onImageUpload('')
     if (fileInputRef.current) {
       fileInputRef.current.value = ''
     }
+  }
+
+  const handleImageError = () => {
+    setImageError(true)
+  }
+
+  const handleImageLoad = () => {
+    setImageError(false)
   }
 
   return (
@@ -192,11 +212,37 @@ export function CameraUpload({
       {/* Preview */}
       {previewUrl && !isCameraActive && (
         <div className="relative">
-          <img
-            src={previewUrl}
-            alt="Scooter preview"
-            className="w-full h-48 object-cover rounded-xl border-2 border-gray-200"
-          />
+          <div className="relative w-full h-48 rounded-xl border-2 border-gray-200 overflow-hidden bg-gray-100">
+            {!imageError ? (
+              <img
+                src={previewUrl}
+                alt="Scooter preview"
+                className="w-full h-full object-cover"
+                onError={handleImageError}
+                onLoad={handleImageLoad}
+              />
+            ) : showFallback ? (
+              <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
+                <div className="flex flex-col items-center justify-center text-gray-500">
+                  <div className="w-16 h-16 bg-gray-300 rounded-full flex items-center justify-center mb-3">
+                    <Camera className="w-8 h-8 text-gray-600" />
+                  </div>
+                  <p className="text-sm font-medium text-gray-600 mb-1">No Image</p>
+                  <p className="text-xs text-gray-500 text-center px-2">
+                    Scooter image not available
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div className="w-full h-full flex flex-col items-center justify-center bg-gray-50">
+                <Camera className="w-12 h-12 text-gray-400 mb-2" />
+                <p className="text-sm text-gray-500 text-center px-4">
+                  Image could not be loaded
+                </p>
+              </div>
+            )}
+          </div>
+          
           <Button
             type="button"
             onClick={removeImage}
@@ -206,12 +252,26 @@ export function CameraUpload({
           >
             <X className="w-4 h-4" />
           </Button>
+          
+          {/* Show current image info */}
+          {currentImage && (
+            <div className="absolute bottom-2 left-2 bg-black/50 text-white text-xs px-2 py-1 rounded">
+              Current Image
+            </div>
+          )}
         </div>
       )}
 
       {/* Upload Controls */}
       {!previewUrl && !isCameraActive && (
         <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center space-y-4">
+          {/* Show current status */}
+          <div className="mb-4">
+            <p className="text-xs text-gray-400 mb-2">
+              {currentImage ? `Current: ${currentImage.substring(0, 50)}...` : 'No current image'}
+            </p>
+          </div>
+          
           <div className="flex justify-center gap-4">
             <Button
               type="button"

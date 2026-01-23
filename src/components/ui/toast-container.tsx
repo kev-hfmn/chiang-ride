@@ -27,7 +27,7 @@ export function ToastContainer() {
   if (toasts.length === 0) return null
 
   return (
-    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-9999 space-y-3 !max-w-xl">
+    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-9999 space-y-3 w-full max-w-2xl px-4">
       {toasts.map((toast) => (
         <Toast key={toast.id} toast={toast} />
       ))}

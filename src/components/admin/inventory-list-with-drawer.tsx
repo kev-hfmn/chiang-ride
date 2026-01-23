@@ -101,7 +101,12 @@ export function InventoryListWithDrawer({ scooters: initialScooters, translation
       formData.set('daily_price', dailyPrice.toString())
       formData.set('weekly_price', weeklyPrice.toString())
       formData.set('monthly_price', monthlyPrice.toString())
-      await updateScooterAction(selectedScooter.id, formData)
+      
+      const result = await updateScooterAction(selectedScooter.id, formData)
+      
+      if (!result) {
+        throw new Error('No response from server')
+      }
       
       // Optimistic update after successful server response
       const updatedScooter: Scooter = {
@@ -121,12 +126,14 @@ export function InventoryListWithDrawer({ scooters: initialScooters, translation
       // Update UI after server success
       setScooters(prev => prev.map(s => s.id === selectedScooter.id ? updatedScooter : s))
       showToast.success('Scooter Updated', `${updatedScooter.model} has been updated successfully`)
+      
+      // Reset state before closing
+      setIsSubmitting(false)
       handleClose()
     } catch (error) {
       console.error('Failed to update scooter:', error)
       const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
       showToast.error('Update Failed', errorMessage)
-    } finally {
       setIsSubmitting(false)
     }
   }
@@ -140,7 +147,12 @@ export function InventoryListWithDrawer({ scooters: initialScooters, translation
       formData.set('daily_price', addDailyPrice.toString())
       formData.set('weekly_price', addWeeklyPrice.toString())
       formData.set('monthly_price', addMonthlyPrice.toString())
-      await addScooterAction(formData)
+      
+      const result = await addScooterAction(formData)
+      
+      if (!result) {
+        throw new Error('No response from server')
+      }
       
       // Create new scooter after successful server response
       const newScooter: Scooter = {
@@ -161,12 +173,14 @@ export function InventoryListWithDrawer({ scooters: initialScooters, translation
       // Add to UI after server success
       setScooters(prev => [newScooter, ...prev])
       showToast.success('Scooter Added', 'New scooter has been added to your fleet')
+      
+      // Reset state before closing
+      setIsSubmitting(false)
       handleClose()
     } catch (error) {
       console.error('Failed to add scooter:', error)
       const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
       showToast.error('Add Failed', errorMessage)
-    } finally {
       setIsSubmitting(false)
     }
   }
@@ -232,7 +246,11 @@ export function InventoryListWithDrawer({ scooters: initialScooters, translation
 
             <div className="flex-1 overflow-y-auto px-6 py-6 max-h-[calc(75dvh-120px)]">
               {selectedScooter && (
-                <form action={handleSubmit} className="space-y-6 pb-6">
+                <form onSubmit={(e) => {
+                  e.preventDefault()
+                  const formData = new FormData(e.currentTarget)
+                  handleSubmit(formData)
+                }} className="space-y-6 pb-6">
                   <div className="space-y-2">
                     <label htmlFor="brand" className="text-sm font-bold text-gray-900">
                       {t.brand}
@@ -332,8 +350,10 @@ export function InventoryListWithDrawer({ scooters: initialScooters, translation
                     </label>
                     <CameraUpload
                       onImageUpload={setMainImage}
-                      currentImage={mainImage}
+                      currentImage={selectedScooter.main_image || mainImage}
                       bucketName="scooter-images"
+                      showFallback={true}
+                      fallbackSrc="/images/scooter-placeholder.jpg"
                     />
                   </div>
 
@@ -392,7 +412,11 @@ export function InventoryListWithDrawer({ scooters: initialScooters, translation
             </div>
 
             <div className="flex-1 overflow-y-auto px-6 py-6 max-h-[calc(75dvh-120px)]">
-              <form action={handleSubmitAdd} className="space-y-6 pb-6">
+              <form onSubmit={(e) => {
+                e.preventDefault()
+                const formData = new FormData(e.currentTarget)
+                handleSubmitAdd(formData)
+              }} className="space-y-6 pb-6">
                 <div className="space-y-2">
                   <label htmlFor="add-brand" className="text-sm font-bold text-gray-900">
                     {t.brand}
@@ -493,6 +517,8 @@ export function InventoryListWithDrawer({ scooters: initialScooters, translation
                     onImageUpload={setMainImage}
                     currentImage={mainImage}
                     bucketName="scooter-images"
+                    showFallback={true}
+                    fallbackSrc="/images/scooter-placeholder.jpg"
                   />
                 </div>
 
